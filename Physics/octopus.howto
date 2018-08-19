@@ -1,0 +1,255 @@
+# ----------------------------------------
+# whatever comes into my mind about octopus (except for the dish)
+# ------------------------------------------
+
+# checkout at
+  svn co http://www.tddft.org/svn/octopus/trunk
+
+# checkout specific version
+  svn co -r 6512  http://www.tddft.org/svn/octopus/trunk
+
+for version that works with 1d lsda: version = 7042 (working) or higher
+
+# ---------------------------------------
+# Configuration and Installation (Nicoles notes)
+# --------------------------------------
+
+# To run OCTOPUs on corvo do (also compile)
+  use gcc
+  # first
+
+# comile libxc
+  # in trunk/libxc
+  ./configure --prefix=prefix_directory --disable-shared
+
+# link libraries
+  ./configure FC=g95 --with-blas=...libblas_g95.a --with-lapack=...liblapack-g95.a
+
+# tell it where to look for libxc
+  --with-libxc-prefix=prefix_directory
+
+# export libxc
+  export LD_LIBRARY_PATH=$HOME/whereeverthelibxcis:$LD_LIBRARY_PATH
+
+# show, where OCTOPUS looks for libraries
+  ldd ./octopus
+
+# for octopus in a cage do (during configuration)
+  --prefix=/home/.../octopus-directory
+
+# if you want to run in 4D
+  --with-max-dim=4
+
+# run 
+  make
+  make install
+  # in main directory
+
+# also pass (solves preprocessor problem with g95)
+  CFFPP="/lib/cpp -C -P ansi"
+
+
+
+#---------------------------------------
+# Hydrogen Atom
+#---------------------------------------
+
+# CalculationMode
+ gs
+ td
+ unocc
+ casida
+ em_resp
+ go (geometry optimization)
+
+ # You can run several CalculationMode calculations using one input file by using the block option
+ 
+\% CalculationMode 	
+   gs   |  unocc 	
+  "gs_" | "unocc_"	
+\%
+
+# Coordinates (Block)
+  'H' $|$ 0 $|$ 0 $|$ 0 $|$
+
+# SpinComponents
+  spin_polarized
+
+# TheoryLevel
+  independent_particles
+  hartree (nur devel)
+  hartree_fock
+  dft (default)
+
+# Units
+  atomic (default)
+  eV_Angstrom (eV, Angstrom and derivatives with $\hbar=1$)
+
+
+#---------------------------------------
+# Periodic Systems
+#---------------------------------------
+
+Note: For periodic systems you MUST explicitly specify the variable PeriodicDimensions as well as either KPointsGrid or KPoints. Also the only possible BoxShape for periodic systems is parallelepiped.
+
+
+# PeriodicDimensions
+
+
+# KPointsGrid
+gives the number of k-points per axis
+
+# KPoints
+sets explicitly positions and weights
+
+# ExtraStates 
+
+# KPointsCenterOfInversion
+bolean, exploit (yes) or not exploit inversion symmetry (only possible symmetry operation in 1D systems), 3D equivalent is KPointsUseSymmetries
+
+# KPointsUseSymmetries
+see KPointsCenterOfInversion
+
+# EigenSolverMaxIter
+max number of iterations to converge the unoccupied states; if states do not converge, try restarting octopus or increasing EigenSolverMaxIter
+
+# Geometry Optimization
+# GOMethod
+  steep: 
+    # Simple steepest descent.
+   cg_fr:
+    # Fletcher-Reeves  conjugate-gradient  algorithm.  The  conjugate-gradient
+    # algorithm  proceeds  as a succession of line minimizations. The sequence of
+    # search  directions is used to build up an approximation to the curvature of
+    # the function in the neighborhood of the minimum.
+   cg_pr: 
+    # Polak-Ribiere conjugate-gradient algorithm.
+   cg_bfgs: 
+    # Vector  Broyden-Fletcher-Goldfarb-Shanno  (BFGS)  conjugate-gradient
+    # algorithm.  It is a quasi-Newton method which builds up an approximation to
+    # the  second  derivatives  of  the function _f_ using the difference between
+    # successive gradient vectors. By combining the first and second derivatives,
+    # the  algorithm  is  able  to  take  Newton-type  steps towards the function
+    # minimum, assuming quadratic behavior in that region.
+   cg_bfgs2: 
+    # The  bfgs2  version  of  this  minimizer  is  the  most  efficient  version
+    # available, and is a faithful implementation of the line minimization scheme
+    # described  in  Fletcher,  _Practical  Methods  of Optimization_, Algorithms
+    # 2.6.2 and 2.6.4.
+  simplex: 
+    #don't use except you want to fool around
+
+
+# GoTolerance
+stopping criterion of the geometry optimization
+
+
+#---------------------------------------
+# Benzene Molecule - Calculations
+#---------------------------------------
+
+# TDDynamics
+  options:  Ehrenfest (default)
+	    bo: Born-Oppenheimer
+	    cp: Car Parinello
+
+
+# MoveIons
+  options:  static_ions (default)
+	    vel_verlet
+	    nose_hoover: Nose-Hoover thermostat
+
+# RandomVelocityTemp
+  if you are going to do ion dynamics, this variable assignes an initial velocities to the ions according to the temperature given (in Kelvin). Alternatively you can specify the velocities for each ion and each direction by hand using the Velocities block or from a pseudo-xyz file detailed by the variable XYZVelocities
+
+# TDIonicTimeScale
+  relates to the article by Xavier about the modified Ehrenfest formalism. TDIonicTimeScale defines the factor between the timescale of ionic and electronic movement. The value of this variable is equivalent to the role of $\mu$ in Car-Parrinello. Increasing it linearly accelerates the time step of the ion dynamics, but also increases the deviation of the system from the Born-Oppenheimer surface. The default is 1, which means that both timescales are the same. Note that a value different than 1 implies that the electrons will not follow physical behaviour.
+  According to our tests, values around 10 are reasonable, but it will depend on your system, mainly on the width of the gap.
+
+Important: The electronic time step will be the value of TDTimeStep divided by this variable, so if you have determined an optimal electronic time step (that we can call dte), it is recommended that you define your time step as:
+
+TDTimeStep = dte * TDIonicTimeScale
+
+so you will always use the optimal electronic time step.
+
+For more details see: http://arxiv.org/abs/0710.3321 
+
+#---------------------------------------
+# Project 1: Local Vibrations
+# -------------------------------------
+
+# EigenSolver=rmmdiis
+  for systems with more than about 20 atoms use option EigenSolver = rmmdiis . Attention: you have to set the variable DevelVersion = yes, and have to add about 10 to 20 \% more states.
+
+# DevelVersion
+  set DevelVersion = yes for some options to work (e.g. EigenSolver rmmdiis) 
+
+
+
+#--------------------------------------
+# other variables
+#------------------------------------
+
+# smearingFunction
+  fermi-dirac
+
+# smearing
+  default: 0.1 eV
+
+
+#----------------------------------------
+# Things about the source code 
+# --------------------------------------
+
+# species_weight(geo%atom(iatom)%spec)
+
+# geo%atom()%move
+  if(geo%atom(i)%move) 
+  --> if it is allowed to move
+
+
+# -----------------------------------------
+# Other (cryptic) comments I found in my post-it collection
+# ------------------------------------------
+
+# ---------------------
+post-it 1)
+
+TDExcitedStates
+ToProject
+--> auschecken bzw. probieren
+# -----------------------
+
+
+# -----------------------------------------
+# Running octopus on corvo for the later versions 
+# -----------------------------------------
+#
+# Metis is the program, that is responsible for the parallization in domains, but metis cannot be compiled properly with
+# mpibull on corvo. Therefore one has to 
+# 1. Compile the parallel version of octopus without metis: configure --disable-metis
+# 2. On a different computer (i.e. oscar, magerit, etc), create the input file including the variable
+#       MeshPartitionVirtualSize = nd
+#       where nd is the number of domains, that you want to use afterwards in the parallization. 
+#       Run this file with
+#       mpirun -n some_number_of_nodes executable
+#       This will create the partition, which then has to be copied into the respective restart folder.
+#       Don't worry too much, if it gives an error, it might still be working.
+# 3. Copy the partition restart into the restart folder of the run, that you want to do.
+# 4. Since the default of the variable "ParallelizationStrategy" is already par_domains + par_states for the td run, you
+#       dont have to worry about it too much. Just set the variable 
+#       %ParallelizationGroupRanks
+#          nd | ns
+#       %
+#       where nd is the number of domains, ns the number of states, that you want to use. nd*ns = number of used processors.
+#       You can also use 
+#       %ParallelizationGroupRanks
+#          nd | fill
+#       %
+#    Hint from Joseba: Parallelization in states is ok down to about 10 states per node, afterwards rather uneffective.
+#    Better use the parallization in domains!
+#    Attention: If you still have problems, you can try to set the ierr=0 on line 616 of trunk/src/mesh_partition.F90
+#    before the line
+#    If fingerprint is OK ... 
+#    It seems to randomly get confused and throw errors, even though things are fine. If it really was broken, it would
+#    throw an error afterwards again, so no worries.

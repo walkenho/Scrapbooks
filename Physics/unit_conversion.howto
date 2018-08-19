@@ -1,0 +1,21 @@
+atomic units
+time: 1 a.u_time = 0.024188843 fs
+energy: 1 Ha = 4.3597438 \cdot 10^{-18} J
+        1 Ha = 27.063026379 eV
+        1 Ha = 218 277.95 cm^{-1}
+
+convenient units (eV_Angstrom)
+time: 1 = 0.658211814 fs
+energy: 1 eV = 1.60217646 \cdot 10 ^{-19} J
+        1 ev = 8065.541154 cm^{-1}
+
+other
+energy:   1 cm^{-1} = 46*10^{-7} Ha
+
+
+1 fs = 1 a.u_time / 0.024188843 = 41.34137378956074914372 au
+1 fs = 1 c.u_time / 0.658211814
+
+
+other Values:
+\hbar = 1.05457148 \cdot 10^{-34} Js
