@@ -1,0 +1,287 @@
+###################################
+# Intro to Pandas 
+# - from the pandas documentation 
+###################################
+
+###################################
+# Data Structure Intro Section
+###################################
+
+# ---------------------------------
+# Series
+# ---------------------------------
+
+# axis labels are called index
+
+s = pd.Series(data, index=index)
+data can be: Python dict, ndarray, scalar value
+
+a) ndarray
+s = pd.Series(np.random.randn(5), index = ['a', 'b', 'c', 'd', 'e'])
+s = pd.Series(np.random.randn(5))
+
+check index: s.index
+
+b) dict
+d = {'a' : 0., 'b' : 1., 'c' : 2.}
+pd.Series(d) -> generates series with index a,b,c
+
+pd.Series(d, index=['b', 'c', 'd', 'a']) -> series has entry with index d and value NaN, since d is not a key of the dict
+
+c) from scalar
+here, the index must be provided, values is repeated to length of index
+
+pd.Series(5., index = ['a', 'b', 'c', 'd', 'e'])
+
+# Series behave like ndarrays:
+s[0]
+s[:3]
+s[s > s.median()]
+s[[4, 3, 1]]
+np.exp(s)
+
+# Series is also dict-like, referable to by index
+s['a']
+
+# checking for labels:
+'e' in s -> gives True or false
+
+# securely getting entries:
+s['f'] throws error if f is not a label
+
+s.get('f') returns nothing or specified default if f is not label
+s.get('f') returns nothing
+s.get('f', np.nan) returns set default np.nan
+
+# Operations between Series automatically align the data based on label, the result will have the union of indexes involved. If an entry is not found in one of the two Series, the entry will be NaN
+s[1:] + s[:-1] gives NaN for first and last index
+
+# Drop NaN with dropna function
+
+# Series can have a name attribute
+s = pd.Series(np.random.randn(5), name = 'something')
+
+
+
+# ---------------------------------
+# DataFrame
+# ---------------------------------
+
+row names: index
+column names: columns
+
+build from: a) dict of 1d ndarrays, lists, dicts or Series, b) 2d numpy.ndarray, c) structured or record ndarray, d) Series, e) DataFrame
+
+# If you pas index/columns, all data not matching these, will be discarded
+
+a) from dict of Series or dicts
+result index (rownames) will be union of various Series
+
+d = {'one' : pd.Series([1., 2., 3.], index = ['a', 'b', 'c']), 
+     'two' : pd.Series([1., 2., 3., 4.], index = ['a', 'b', 'c', 'd'])} 
+df = pd.DataFrame(d)
+
+df.index
+df.columns
+
+
+a2) from dict of ndarrays/lists
+ndarrays must be of same length, if index is passed, also index must be of same length
+
+######################################
+# DataFrame manipulation
+######################################
+# creating new column based on old:
+df['flag'] = df['one'] > 2
+
+# deleting:
+del df['two']
+
+# naturally propagating values through whole column:
+df['foo'] = 'bar'
+
+# inserting columns
+df.insert(1, 'bar', df['one']) -> inserts column 'bar' (created from df['one']) as column 1 
+
+
+### Assigning New Columns in Method Chains 
+iris = pd.read_csv('data/iris.data')
+(iris.assign(new_column = iris['old column name 1'] / iris ['old column name 2']) -> gives copy of dataframe
+or:
+iris.assign(new_column = lambda x: (x['old column name 1'] / x['old column name 2']))
+# passing callable can be useful when there is no reference to the DataFrame at hand, e.g. limiting the dataframe before:
+(iris.query('SepalLength > 5')
+	.assign(SepalRatio = lambda x: x.SepalWidth / x.SepalLength, PetalRatio = lambda x: x.PetalWidth / x. PetalLength)
+	.plot(kind='scatter', x='SepalRatio', y='PetalRatio'))
+
+# Warning: Assign does all assignments, then gives them out ordered, therefore do not reference to new variables in the same assignement, break down into two assignments!
+
+
+#############################################################################
+# Indexing / Selection 
+#############################################################################
+
+# Select Column (results in Series):
+df[col]
+
+# Select Row by label (results in Series whose index is the columns of the df):
+df.loc[label]
+
+# Select row by integer location (results in Series):
+df.iloc[loc]
+
+# slice rows (results in df) 
+df[5:10]
+
+# select rows by boolean vec (results in df)
+df[bool_vec]
+
+
+# when doing operations between DataFrame and Series, the Series index is aligned with the DataFrame columns, broadcasting row-wise:
+df - df.iloc[0] gives first row zeros
+Execption: Dealing with time series, i.e. with dates
+
+###################################
+# Console display
+###################################
+
+df.info()
+
+# prints string version of DataFrame in tabular form:
+print(df.to_string()) 
+
+# setting display options:
+pd.set_option('display.width', 40)
+pd.set_option('display.max_colwidth', 30)
+
+
+
+
+
+#########################################
+# - from Essential Basic Functionality
+#########################################
+
+#---------------------------------------
+# Attributes and raw ndarray(s)
+#---------------------------------------
+
+Attributes: shape, index (rows or for Series), columns
+
+df.columns = [x.lower() for x in df.columns]
+
+df.values
+
+
+
+
+
+
+# useful things:
+# Series
+pandas.Series.rename()
+
+# Numerics
+.dropna
+
+# DataFrames
+df.index
+df.columns
+df.values
+
+df.info()
+
+#if column name is proper variable, can be accessed via
+df.foo1
+
+# install numexpr and bottleneck libraries for faster dealing with large data sets
+
+.fillna
+
+# NaN does not boolean compare equal to NaN, but does, if ones used .equals:
+(df + df).equals(df*2) -> True
+but: np.nan == np.nan -> False
+
+# ------------------------
+# Combining DataFrames
+# ------------------------
+
+# Combining with preference given to the df1 (i.e. take value of df1 is exists, otherwise take value of df2)
+df1.combine_first(df2)
+
+combine_first based on combine():
+combiner = lambda x, y: np.where(pd.isnull(x), y, x)
+df1.combine(df2, combiner)
+
+# ---------------------------------------
+# Descriptive Statistics 
+# ---------------------------------------
+
+sum(), mean(), quantile(), cumsum(), cumprod(), ...
+
+axis can be specified by axis or name:
+Series: no axis argument needed
+DataFrame: "index" (axis = 0, default), "columns" (axis=1)
+
+df.mean(0) -> mean of each column, i.e. mean along the axis index
+
+# all methods have skipna option (by default True)
+
+df.sum(0, skipna=False)
+
+# rendering standardization (rendering data zero mean and standard deviation 1):
+ts_stand = (df - df.mean()) / df.std()
+
+xs_stand = df.sub(df.mean(1), axis=0).div(df.std(1), axis=0)
+
+# cumsum() and cumprod() preserve location of NA values
+
+# Descriptive Statitics:
+count	no um non-null observations
+sum
+mean
+mad	mean absolute deviation
+median
+min
+max
+mode
+abs
+prod
+std 	Bessel-corrected sample standard deviation
+var	unbiased variance
+sem	standard error of the mean
+skew	skewness (3rd moment)
+kurt	kurtosis (4th moment)
+quantile	sample quantile (value at %)
+cumsum	cumulative sum
+cumprod
+cummax
+cummin
+
+# returns number of unique non-null values:
+nunique()
+series = pd.Series(np.random.randn(500))
+series.unique()
+
+# summary of statistical analysis:
+df.describe()
+df.describe(percentiles=[.05,.25,.75,.96]) -> includes given percentiles and 0.5 (by default always)
+
+# if dataframe non-numerical, describe gives frequencies
+# if dataframe mixed, then either one or the other, controlled by include/exclude
+frame.describe(include=['object'])
+frame.describe(include=['number'])
+frame.describe(include=['all'])
+
+s = pd.Series(data)
+s.idxmin(), s.idxmax() -> index of min and max value
+s.values_counts() -> computes histogram of 1d array of values
+
+# Discretizing and quantiling
+
+
+
+
+# Pivot tables:
+http://pbpython.com/pandas-pivot-table-explained.html
+

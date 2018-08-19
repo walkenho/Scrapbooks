@@ -1,0 +1,16 @@
+#=========================================================
+# How to delete a star without rm -r *
+# ======================================================
+
+# open the midnight commander
+  mc 
+
+# it has numbers that correspond to the F keys
+
+# if it doesn't close properly, put it to background
+  Ctrl + Z
+
+# and then kill
+  jobs
+  # look for number n of job
+  kill %n

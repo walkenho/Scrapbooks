@@ -1,0 +1,279 @@
+################################
+# From Datamanagement and Visualization
+###############################
+
+# --------------------------------------------
+# Week 2 
+#---------------------------------------------
+
+mydata = pandas.read_csv('mydatafile.csv')
+mydata = pandas.read_csv('mydatafile.csv', low_memory = false) can increase efficiency
+
+# Number of rows:
+print(len(mydata))
+
+# Number of columns:
+print(len(mydata.columns))
+
+# Analyzing frequencies of categorical variable var_c
+c1 = mydata["var_c"].values_count(sort=False)
+c1 = mydata["var_c"].values_count(sort=False, dropna=False) # also displays the Na values, otherwise they are not displayed, but still counted in the total
+p1 = mydata["var_c"].values_count(sort=False, normalize=True) # displays percentages
+
+# Converting variables into numeric in order to e.g. sort them correctly:
+mydata["var_c"]=data["var_c"].convert_objects(convert_numeric=True)
+
+# alternatively:
+ct1 = mydata.groupby["var_c"].size()
+pt1 = mydata.groupby["var_c"].size()*100/len(mydata)
+
+
+# choosing subsets:
+sub1 = data[(data['AGE'] >= 18) & (data['AGE' < 25])]
+
+sub2 = sub1.copy() # is sometimes a good idea in order to avoid warnings
+
+# Upper/lower case all column names:
+mydata.columns = map(str.upper, data.columns)
+mydata.columns = map(str.lower, data.columns)
+
+
+# --------------------------------------------
+# Week 3 -> Managing data, munging data
+#---------------------------------------------
+
+# replaces entry 9 by nan in order for python to ignore it
+  sub2['var_c']=sub2['var_c'].replace(9,numpy.nan) 
+  # count before and afterwards, remember to put dropna=False
+
+# sometimes it makes sense to recast results if answer is given implicitely:
+data.loc[(condition 1) & (condition 2), 'variablename'] = newvalue
+
+# sometimes it also makes sense to recode things more intuitively, i.e. if a high number suggests something low and vice versa, one could recode it in the following way:
+# firstly, create a dictionary, then use the map
+recode1 = {1:6, 2:5, 3:4, 4:3, 5:2, 6:1}
+sub2['var_d'] = sub2['var_c'].map(recode) # renaming is good here
+# sometimes it is also reasonable to spread out categorical variables into numerical values
+
+
+# lambda functions:
+data['some_var'] = data.apply(lambda row: previously_defined_function(row), axis = 1)
+# lambda function is also often used together with filter(), map(), reduce()
+
+# example of function returning something -> can be used to define e.g. a new categorical variable
+def myfunction(myvar):
+	if myvar == 1:
+		return 1
+	if myvar == 2:
+		return 2
+
+# quartile split:
+sub2['agegroup2'] = pandas.qcut(sub2.AGE, 4, labels=["1=25%tile", "2=50%tile", "3=75%tile", "4=100tile"])
+c9 = sub2['agegroup'].value_counts(sort=False, dropna = True)
+
+# self-defined split:
+sub2['agegroup_def'] = pandas.cut(sub2.AGE, [17,20,22,25])
+
+# Checking where all the variables are:
+print(pandas.crosstab(sub2['agegroup'], sub2['AGE'])
+
+# -------------------------
+# Week 4 - Visualization
+# -------------------------
+
+# converting numerical into categorical variables for plotting:
+sub2['var1'] = sub2['var1'].astype('category')
+
+# make plot for categorical variable var1
+seaborn.countplot(x='var1', data = sub2)
+plt.xlabel('some label')
+plt.title('some title')
+
+# for quantitative variables:
+seaborn.distplot(sub2['var1'].dropna(), kde=False)
+
+desc1 = sub2['var1'].describe()
+-> count, mean, std, min, quartiles, max
+also: .mean(), .max(), .mean(), .mode(), ...
+
+for categorical variables, .describe() provides:
+count, unique, top, freq (of top value)
+
+# set pandas to show all columns/rows in dataframe:
+pandas.set_option('display.max_columns/rows', None)
+
+# categorical response (2 categories, e.g. yes/no), quantitative explanatory variable
+-> collapse quantitative explanatory variable into categorical variable
+ (remember to tell python to treat new variable as categorical by setting .astype('category'))
+
+# illustration of relationship between categorical and categorical variable:
+# if categorical response has only two categories, yes and no: convert to numerics before for displaying mean on y-axis
+sub2['var2']=sub2['var2'].convert_objects(convert_numeric=True)
+# then plot:
+seaborn.factorplot(x='var1', y='var2', data=sub2, kind="bar", ci=None)
+# kind = point gives line with points
+# ci means errorbars
+
+# if categorical response has more than two categories -> collapse!
+
+# rename in order to plot with describtive names:
+sub2['var2']=sub2['var2'].cat.rename_categories(['White', 'Black', 'NatAm', 'Asian'])
+
+# quantitative vs quantitative -> scatterplot
+# remember to convert variables to numeric before!
+# basic scatterplot:
+scat1 = seaborn.regplot(x = 'var1', y = 'var2', fit_reg=False, data=data)
+scat2 = seaborn.regplot(x = 'var1', y = 'var2', data=data)
+
+# quantitative response, categorical explanatory, similar syntax as before but:
+# gather income into categories first:
+data['incomegrp4'] = pandas.qcut(data.incomeperperson, 4, labels = [' ', ]
+# then plot:
+seaborn.factorplot(x='incomegrp4', y = ..., kind = 'bar', ) as before
+
+
+
+################################
+# From Data Analysis Tools
+###############################
+
+#----------------------------
+# Performing Anova:
+#----------------------------
+
+# drop all the nas before by defining new dataframe and add .dropna() while doing so
+
+import statsmodels..api as sm 
+import statsmodels.formula.api as smf 
+
+ordinary least square function: smf.ols
+
+model1 = smf.ols(formula='my_response_var ~ C(my_explanatory_var)', data=my_dataframe)
+# C indicates, that my_explanatory_var is categorical variable
+
+results1 = model1.fit()
+print (results1.summary())
+
+# one post-hoc pairwise test: Tukey's Honestly Significant Difference Test
+import statsmodels.stats.multicomp as multi
+mc1 = multi.MultiComparison(my_dataframe['my_response_var'], my_dataframe['my_explanatory_var'])
+res1 = mc1.tukeyhsd()
+print(res1.summary())
+
+# ----------------------------
+# Performing chi2 test
+# ----------------------------
+
+# request contingency table
+ct1 = panda.crosstab(my_dataframe['my_response_var'], my_dataframe['my_explanatory_var'])
+print (ct1)
+
+# column percentages:
+colsum = ct1.sum(axis=0)
+colpct = ct1/colsum
+print (colpct)
+
+# chisquare values:
+print ('chi square value, p-value, expected counts')
+cs1 = scipy.stats.chi2_contingency(ct1)
+print (cs1)
+
+# example: does nicotine dependence (categorical) depend on number of cigarettes smoked (categorical in bins)
+# interested in: each category: yes or no; column percentage
+# in order to plot: convert nicotine dependence into numerical (1 or 0), the other as category
+my_dataframe['my_explanatory_var'] = my_dataframe['my_explanatory_var'].astype('category')
+my_dataframe['my_response_var'] = my_dataframe['my_response_var'].convert_objects(convert_numeric=True)
+seaborn.factorplot(x='my_explanatory_var', y = 'my_response_var', data = my_dataframe, kind = 'bar', ci =None)
+plt.xlabel(' ')
+plt.ylabel('Proportion Nicotine Dependent')
+
+# Post-hoc test: Bonferroni adjustement
+-> implement as previous, but with only two categories (using e.g. a mapping .map to single out interesting variables from the dataframe)
+
+# --------------------------------- 
+# Pearsons r
+# ---------------------------------
+data_clean = data.dropna()
+
+print (scipy.stats.pearsonr(data_clean['my_explanatory_var'], data_clean['my_response_var'])
+-> creates r and associated p value
+
+
+
+# -----------------------------------
+# Moderators
+# ----------------------------------
+
+my_dataframe.groupby('var1').mean()  -> mean for subcategories of var1
+
+# creating a categorical variable could be done by e.g.:
+
+def myfunction(row):
+	if row == 1:
+		return 1
+	if row == 2:
+		return 2
+
+data['new_categorical_var'] = data.apply(lambda row: myfunction(row), axis = 1)
+
+
+########################################
+# From Regression Modelling in Practice
+########################################
+
+# -------------------------------------------
+# Linear regression for quantitative explanatory:
+# -------------------------------------------
+
+modelname = smf.ols(formula = 'my_quantitative_response_var ~ my_quantitative_explanatory_var', data = my_dataframe).fit()
+print(modelname.summary())
+# look at p, but also at r2: fitting can evidence through p, but r2 might still be small -> maybe linear is not the right kind of line, one could try order 2 (see below)
+
+# for categorical exlanatory:
+modelname = smf.ols(formula = 'my_quantitative_response_var ~ my_categorical_explanatory_var', data = my_dataframe).fit()
+print(modelname.summary())
+
+# Multiple Regression
+reg2 = smf.ols('my_response ~ var1 + centered_var2', data = mydataframe).fit()
+print (reg2.summary())
+
+# -------------------------------------------
+# Polynomial Regression
+# -------------------------------------------
+
+# Scatterplot plus regression line:
+scat1 = seaborn.regplot(x=' ', y=' ', scatter = True, data = mydataframe)
+
+# Scatterplot plus quadratic regression:
+scat1 = seaborn.regplot(x=' ', y=' ', scatter = True, order = 2, data = mydataframe)
+
+reg2 = smf.ols('my_response ~ my_explanatory + I(my_explanatory**2)', data=my_dataframe).fit()
+# I() is identity
+# look at P values for both my_explanatory and I(my_explanatory) -> significant?
+# also check r2 -> how much association can now be accounted for?
+
+# ------------------------------------------
+# qq - plot
+# ------------------------------------------
+
+fig1 = sm.qqplot(reg3.resid, line = 'r')
+# has to have the reg3 like above
+
+# plot standardized residuals:
+# first convert standardized residuals to dataframe
+stres = pandas.DataFrame(reg3.resid_pearson)
+# resid_pearson tells pyton to use standardized residuals from the regression analysis reg3 (which was created before)
+fig2 = plt.plot(stdres, 'o', ls = 'None')
+l = plot.axhline(y=0, color = 'r') # draws horizontal line
+# 68 % of residuals should fall within -1:1 (1 standard deviation), 95% within -2:2
+
+# plot various regression diagnostics plots:
+fig3 = plt.figure(figsize(12,8))
+fig3 = sm.graphics.plot_regress_exog(reg3, 'var2', fig=fig3)
+
+# leverage plot -> check for observations which are outliers and have high leverage!
+fig4 = sm.graphics.influence_plot(reg3, size=8)
+
+
+
+

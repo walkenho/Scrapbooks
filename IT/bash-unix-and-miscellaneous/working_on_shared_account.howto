@@ -1,0 +1,7 @@
+# ----------------------
+
+
+
+# to direct x output to someone, the display has to be set to be his
+# find out, which display is set
+  env | grep -i display

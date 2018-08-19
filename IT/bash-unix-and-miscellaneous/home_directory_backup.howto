@@ -1,0 +1,18 @@
+# rsync homedirectory
+# without /home/walkenho/scratch (avoid recursion)
+# without /home/walkenho/.gvfs (cd rom (whyever)
+rsync -aviPHS --delete --exclude=home/walkenho/.gvfs --exclude=home/walkenho/scratch /home/walkenho/ /scratch/walkenho/home.bak/ &>> /home/walkenho/homedirectory_backup.log
+
+# do this every night at 4:00
+# edit crontab via 
+crontab -e
+
+# add the following line
+_____________________________________________________________
+# m h  dom mon dow   command
+00 04  *   *   *     /home/walkenho/bin/backup_homedirectory.sh
+__________________________________________________________________ 
+
+# list current crontab
+  crontab -l
+

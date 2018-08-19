@@ -1,0 +1,403 @@
+Lists:
+len(ducks)
+ducks.append('Dewey Duck')
+ducks.extend(['Duck no 2', 'Duck no 3'])
+ducks = ducks1 + ['Scrooge McDuck', 'April Duck']
+ducks.insert(0, 'Donald Duck')
+del ducks[5]
+ducks.remove('Donald Duck')
+
+Dicts:
+can be e.g. used for employees
+capitals = {'United States' : 'Washington, DC', 'France' : 'Paris'}
+'Germany' in capitals --> True or False
+Combining dicts:
+morecapitals = {'Germany' : 'Berlin'}
+capitals.update(morecapitals)
+del capitals('United States')
+3 types of loops:
+1. over keys (both are the same): 
+1a) for key in capitals:
+1b) for key in capitals.keys():
+	print(key,capitals[key])
+2. over values:
+for value in capitals.values():
+	print(value)
+3. over key-value pairs:
+for key, value in capitals.items():
+	print(key, value)
+
+Comprehensions
+squares = []
+squares = [i**2 for i in range(10)]
+squares3 = [i**2 for i in range(30) if i%3 == 0]
+squares3_dict = {i:i**2 for i in range(30) if i%3 == 0}
+capitals_transpose = { capitals[key] : key for key in capitals}
+
+Comprehensions vs. Generator:
+Comprehension:
+sum([i**2 for i in range(10)])
+Generator (same but without []):
+sum(i**2 for i in range(10))
+--> using generators does not store the intermediate step, i.e. can save lots of memory iand time
+
+Word Anagrams Project
+word = open('words', 'r')
+wordlist=word.readlines()
+len(wordlist)
+string.strip() strips newline
+string.lower() converts to lower case
+wordclean = [word.strip().lower() for word in wordlist]
+getting rid of duplicates: convert into set (which cannot have dublicates), convert back
+wordunique = list(set(wordclean))
+--> lost alphabetical order, use in-place sorting
+wordunique.sort()
+
+wordclean = [word.strip().lower() for word in open('words', 'r')]
+wordclean = sorted(list(set([word.strip().lower() for word in open('words', 'r')])
+
+sorted('lives') == sorted('elvis')
+def signature(word):
+	return ''.join(sorted(word))
+
+def anagram(myword):
+	return [word for word in wordclean if signature(word) == signature(myword)]
+
+%timeit anagram('dictionary') -> too slow
+
+create dictionary, that has signature as key and list of anagrams as value
+
+words_bysig = {}
+for word in wordclean:
+	words_bysig[signature(word)].append(word)
+Problem: throws error, if there is no dict-entry
+Solution: 
+
+import collections
+-> provides dictionary with default value
+
+replace words_bysig = {} by
+words_bysig = collections.defaultdict(list)
+-> provides default value of empty list if key does not exist
+
+Now we have a dictionary with all anagram entries
+
+Fast anagram finder:
+
+def anagram_fast(myword):
+	return words_bysig[signature(myword)]
+
+dictionary with all anagrams except for trivial ones:
+
+anagrams_all = {word: anagram_fast(word) for word in wordlist if len(anagram_fast(word)) > 1 }
+
+How many words in the English language have non-trivial anagrams?
+-> len(anagrams_all)
+
+
+Python idiom:
+wordlist = [transform(word) for word in open(filename, 'r') if condition(word)]
+
+#################
+NumPy
+A[j,k] -> j is row, k column
+
+
+
+NumPy Overview
+a = np.array([1,2,3])
+a = np.array([1,2,3], dtype=np.float64)
+a.dtype
+a.shape
+a.ndim
+np.zeros((3,3), 'd')
+np.empty
+np.linspace(0,0,5)
+np.arange(0,10,2)
+np.random.standard_normal((2,4))
+np.vstack([list1,list2])
+np.hstack([list1,list2])
+a.transpose()
+np.save('filename1',a)
+a2 = np.load('filename1')
+
+in python notebook: %matplotlib inline -> keeps plots inline
+
+pp.plot(x,sinx)
+pp.plot(x,cosx) -> adds second function to graph
+pp.legend(['legend1', 'legend2']
+np.dot(sinx,cosx)
+np.outer(sinx,cosx)
+
+numpy adds vector to matrix row by row, not column by column
+
+np.random.random((5,4))
+slicing lists creates new list, slicing array does _not_ create new array
+
+v3=v2[2:4].copy()
+
+v[[1,2,3]] -> takes 1st, 2nd and 3rd element
+
+bool_index = v > 0
+v[bool_index]
+vv[vv > 0.5] = vv[vv > 0.5] * 2
+
+## Record arrays and datetime objects
+mixture of list and dict: rows accesed by number of rows, columns accesed by names 
+similar to dataframes in pandas
+reca = np.array([1,(2.0, 3.0), 'hey'), (2,(3.5, 4.0), 'n)], dtype = [('x', np.int32), ('y', np.float64, 2), ('z', np.str,4)])
+dtype is given as list of pairs, where each pair contains the name of the column and its type
+reca[0] -> first row
+reca['x'] -> column x
+reca['x'][0]
+
+Datetimes can be given on all different levels of detail:
+np.datetime64('2015')
+np.datetime64('2015-01')
+np.datetime64('2015-01-30T21:00')
+np.datetime64('2015-01-01').astype(float)
+
+r = np.arange(date1, date2)
+
+# Weather Data
+import seaborn (extension to matplotlib to make it prettier)
+
+download data from the internet:
+import urllib.request
+urllib.request.urlretrieve('full path and name of file that we want to download', 'filename on our system'
+
+stations = {}
+for line in open('filename', 'r'):
+	fields = line.split()
+	stations[fields[0]] = ' '.join(fields[4:]) # use entries in first column as key for dictionary
+
+def findstation(s):
+	found = {code: name for code, name in stations.items() if s in name}
+
+def parsefil(filename):
+	return np.genfromtxt(filename, delimiter = dly_delimiter, usecols = dly_usecol, dytpe = dly_dtype, names = dly_names)
+dly_delimiter = [11, 4,2,4] + [5,1,1,1] * 31 # length of fields
+dly_usecols = [1,2,3] + [4*i for i in range(1,32)]
+
+np.nan !!!
+
+Prob: if you take mean of set of data including np.nan, you get np.nan
+Solution: replace data nan by interpolated data:
+example:
+x = np.array([1,3,5,7], 'd')
+y = np.array([10,5,2,7], 'd')
+xs = np.linspace(1,7)
+ys = np.interp(xs,x,y)
+
+~ is bolean negation
+
+def filnans(data):
+	data_float = data['data'].astype(np.float64) # since python cannot do arithmetics with dates
+	nan = np.isnan(data['value'])
+	data['value'][nan] = np.interp(data['data'][nan], data['value'][~nan],data['value'][~nan])
+
+# Smoothing data with running mean
+def plot_smoothed(t, win=10):
+	smoothed = np.correlate(t['value']), np.ones(win)/win, 'same') 
+
+pp.figure(figsize=(10,6)) # changes size of figure
+
+for i, code in enumerate(datastations):
+	pp.subplot(2,2,i+1)
+	pp.title(stations[code])
+	plot_smoothed(getobs(...)),365)
+	pp.axis(xmin=, xmax=, )
+pp.tight_layout()
+
+libhue_tmin_recordmin = np.min(libhue_tmin_all, axis = 0) # calculates min temperature for given day for all years (for each column, i.e. for each year, since before we put min temperatures into matrix, where each row contains a year)
+
+pp.fill_between(days, np.min(), np.max(), alpha=0.4) # alpha = 0.4 is partly transparant
+
+np.argmax()
+
+# Pandas !!!
+import pandas as pd
+
+s = pd.Series([0,1,4,9,25], name='squares')
+
+s.index
+s.values
+
+s[0]
+s[2:4]
+
+pop2014 = pd.Series([100, 99], index=['Java', 'C'])
+pop2014.index
+
+One can still access or slice by numbers
+
+Python will do its best to guess if you are referencing by index number or index name. 
+Explicitly by number: pop2014.iloc[0:2]
+Explicitly by name: pop2014.loc[:'C']
+
+another way to create series is from dictionary instead of from list:
+pop2015 = pd.Series(('Java':100, 'C' : 99.9))
+
+# Pandas Dataframes
+from two series, one can create dataframe 
+twoyears = pd.DataFrame(('2014': pop2014, '2015': pop2015)) # keys will be the columnname
+if one plots this then, 2014 and 2015 are the columns; C, Java, etc are the rows
+twoyears = twoyears.sort('2015', ascending = False)
+
+twoyears.values  # gives values inside the dataframe as array
+twoyears.index
+twoyears.columns
+
+Computes average and asigns it to new column:
+twoyears['avg'] = 0.5 * (twoyears['2014'] + twoyears['2015'])
+
+if one wants to access rows: .loc (or .iloc) methods !!!
+
+Also: create dataframe from dictionary:
+presidents = pd.DataFrame({'name': 'Barack Obama', 'inauguration' : '2009', 'birthyear' : '1961'},
+			  {'name': 'George W. Bush', 'inauguration' : '2001', 'birthyear' : '1946'})
+
+one can choose one of the columns to be used as indeces. We choose the name:
+presidents_indexecs = presidents.set_index('name')
+presidents_indexes.loc('Bill Clinton') # brings out the whole dataset
+
+equivalent are: 
+presidents_indexes.loc['Bill Clinton']['inauguration'] 
+and 
+presidents_indexes['inauguration']['Bill Clinton']
+
+# Joins
+presidents_fathers = pd.DataFrame([{'son': 'Barack Obama', 'father': 'Barack Obama, Sr.'},
+				   {'son': 'George W. Bush', 'father' : George H. W. Bush'}])
+pd.merge(presidents, presidents_fathers, left_on='name', right_on = 'son')
+This table has redundant column (name and son). Drop the column son by
+pd.merge(presidents, presidents_fathers, left_on='name', right_on = 'son').drop('son', axis=1)
+Join omnits unmatched columns, that cannot be joined
+
+If one table does not have data:
+pd.merge(presidents, presidents_fathers, left_on='name', right_on = 'son', how='left').drop('son', axis=1)
+
+## Multiindices
+flights = seaborn.load_dataset('flights')
+flights.head()
+flights_indexed = flights.set_index(['year', 'month'])
+flights_indexed.loc[1949]
+flights_indexed.loc[1949, 'January']
+flighs_indexed.loc[1949].loc['January':'June']
+flights_unstacked = flights_indexed.unstack() # uses second level of indexing to create column names
+One can now e.g. sum up over rows to obtain totals per year:
+flights_unstacked.sum(axis=1)
+flights_unstacked['passengers', 'total'] = flights_unstacked.sum(axis=1)
+Then go back to stacked multiindex:
+flights_restacked = flights.unstacked.stack()
+If you now only want to see total:
+flights_restacked.loc[pd.IndexSlice[:,'total'], 'passengers'] # where passengers is the selection for the columns
+
+open('tips.csv', 'r').readlines()[:10]
+tips = pd.read_csv('tips.csv')
+tips.mean()
+tips.describe()
+
+Grouping:
+tips.groupby('sex').mean()
+tips.groupby(['sex','smoker']).mean() # creates multiindex tables
+pd.pivot_table(tips, 'total_bill', 'sex', 'smoker') # total bill in dependence of if smoker (columns) and which sex (rows)
+pd.pivot_table(tips, 'total_bill', ['sex', 'smoker'], ['day', 'time']) # total bill in dependence of if smoker (rows) and which sex (rows) and in columns day and time
+
+# Baby Names with Pandas
+import zipfile
+zipfile.ZipFile('names.zip').extractall(.')
+
+import os
+os.listdir('names')
+names2011 = pd.read_csv('names/yob2011.txt')
+names2011 = pd.read_csv('names/yob2011.txt', names = ['name', 'sex', 'number']) # specifies the column names; otherwise it takes the first row as column names
+
+#making a list for all years:
+names_all = [] # list to contain all the tables
+for year in range(1880,2014+1):
+	names_all.append(pd.read_csv('names/yob{}.txt'.format(year), names=['name','sex','number']))
+	names_all[-1]['year'] = year
+allyears = pd.concat(names_all)
+
+# index data on gender, then name, then year
+1. build new dataframe:
+allyears_indexed = allyears.set_index(['sex', 'name', 'year']).sort_index()
+example: 
+allyears_indexed.loc(['F', 'Mary']) # gives evolution of Mary with years, exactly what we want
+
+2. Write a function to extract info given above and plot:
+def plotname(sex, name):
+	data = allyears_indexed([sex, name])
+	pp.plot(data.index, data.values)
+
+names = ['name1', 'name2']
+for name in names:
+	plotname('F', name)
+pp.legend(names)
+
+3. Create stackplot 
+Promote names from stacked rownames to column names:
+allyears_indexed.loc['F'].loc[names].unstack(level=0)
+
+Use pandas function fillna to replace NaN by 0:
+variants = allyears_indexed.loc['F'].loc[names].unstack(level=0).fillna(0)
+pp.stackplot(variants.index, variants.values.T, label=names) 
+
+Stackplot does not support legends, create legend manually, adapt colours:
+palette = seaborne.color_palette()
+pp.stackplot(variants.index, variants.values.T, colors=palette)
+
+for i, name in enumerate(names):
+	pp.text(1882,5000 + 800*i, name, color=palette[i])
+
+# Extract top 10 
+- sort dataframe by column
+- drop colums from dataframe
+- join frames based on index
+- count values in a series
+
+pop2008 = allyears_indexed.loc['M',:,2008].sort('number',ascending=False)
+pop2008.reset_index().drop(['sex','year', 'number'], axis=1)
+
+Include this in function:
+def topten(sex, year):
+	simple = allyears_indexed.loc[sex, :, year].sort('number',ascending=False).reset_index()
+	simple = simple.drop(['sex','year', 'number'], axis=1).head(10)
+
+	simple.columns = [year]
+	simple.index = simple.index + 1
+
+	return simple
+
+Compare several years:
+
+def toptens(sex, year0, year1):
+	years = [topten(sex, year) for year in range(year0, year1+1)]
+	return years[0].join(years[1:])
+
+In order to plot, turn dataframe into a series and stack it:
+toptens('F',1985,1995).stack()
+
+toptens('F',1985,1995).stack().value_counts()
+popular = toptens('F',1985,1995).stack().value_counts().index[:6]
+
+# Fads
+- grouping data with groupby
+- computing aggregations
+- combining boolean masks
+
+We want to calculate spikyness. This can be identified by summing the squares of the frequencies of the appearances. 
+Pandafunction agg (aggregation):
+Define function
+def sumsq(x):
+	return sum(x**2)
+then use as if was normal function:
+spikyness = allyears.groupby(['sex', 'name'])['number'].agg(sumsq) / totals**2
+
+
+
+
+
+
+

@@ -1,0 +1,173 @@
+################################
+# How to setup and use git
+##############################
+
+As Admin
+========
+
+# Add a group for all git users
+  addgroup git
+
+Add all relevant user to group blabla (note, they 
+may need to log out and in again to see their new 
+group; you can check which groups you belong to by typing id)
+Adding users which have only restricted access (i.e. can only execute git commands)
+  adduser apfel --shell /usr/bin/git-shell --disabled-password --ingroup blabla --gecos 'H Apfel'
+
+# Create Git Repo
+  apt-get install git-core
+  mkdir -p /srv/git/absorption.git
+  cd /srv/git/absorption.git/
+  git init . --bare --shared
+
+# Give your project a name
+  vim /srv/git/absorption.git/description 
+
+# Grant all users in group blabla write permission to the repo
+  chown -R root.blabla /srv/git/absorption.git
+
+# Email alerts
+
+  cd /srv/git/absorption.git/hooks
+  cp -a /usr/share/doc/git-core/contrib/hooks/post-receive-email post-receive
+  chmod 755 post-receive
+
+# Add users for e-mail notification
+  vim /srv/git/absorption.git/config 
+  add:
+
+---------------------------------------------------------------------
+[core]
+        repositoryformatversion = 0
+        filemode = true
+        bare = true
+        sharedrepository = 1
+[receive]
+        denyNonFastforwards = true
+
+[hooks]
+emailprefix = [absorption-git.ehu.es]
+mailinglist = J Walkenhorst <email1@gmail.com>, A. R. <email2@gmail.com>
+
+-------------------------------------------------------------
+
+
+
+As User (or whatever) without sudo rights
+=========================================
+
+# Go to somewhere, where you already have a git and clone a repo
+  git clone git://github.com/gitster/git.git
+  git clone ip-adress:/srv/git/colorchange.git
+
+  # if you want to do that with a different username:
+  git clone user@ip-adress:/srv/git/colorchange.git
+
+# Copy the folder git (e.g. under the name git.src) to where you want to compile git
+
+# Compile git by
+  cd git.src
+  make configure
+
+# if make configure complains about 
+  # /bin/sh: curl-config: command not found
+  # don't worry, just go on
+
+# go on with:
+  ./configure --prefix=$HOME/usr # e.g. or whatever dir you want to have it in	 
+  make all
+  make install
+
+# Adapt search path to prefix+/bin
+  $HOME/usr/bin/
+
+# Clean unnessassary files by
+  make clean
+
+
+As User
+=======
+
+# Tell git who you are
+  git config --global user.name 'Jessica Walkenhorst'
+  git config --global user.email 'mymail@gmail.com'
+
+# Create work folder
+  mkdir papers
+  cd papers
+
+# Clone the repo that was created by the admin
+  git clone my-ip:/srv/git/absorption.git 
+
+# Populate the repo
+  cd absorption
+  copy own files, or create new ones
+
+# Add you files to the repo and commit
+  git add .
+  git status
+  git commit -a -m 'Initial commit'
+
+# Push the latest commit to the repo
+
+  if you do this for the first time then use: 
+    git push /srv/git/absorption.git master
+  otherwise
+    git push 
+  is enough
+  
+# Get Changes from others
+  git pull
+
+# Creating a .gitignore file that contains all the filenames
+# that should not be tracked by git
+
+  vim .gitignore
+ 
+# Add this .gitignore file to the repo
+
+  git add .gitignore
+  git commit -a -m 'Adding .gitignore file'
+  git push
+
+
+
+Useful commands
+===============
+
+# Checking out only single files
+  git checkout filename
+
+# Checking, which files are in the repo
+  git ls-files
+
+# Checking, which files of the repo were deleted
+  git ls-files -d
+
+# Checking out deleted files from the repo
+  git ls-files -d | xargs git checkout
+
+# Show commit history
+  git log
+
+# Checkout particular version
+  # look for the hash, then in existing tree
+  git checkout hash-no.
+
+# ask about commit statistics
+  git shortlog -sn --no-merges
+  git shortlog -sne --no-merges
+
+# updates tracking for files that changed names or were deleted
+  git add -u 
+
+# creates branch
+  git checkout -b branchname
+# see which branch you are on
+  git branch
+# checkout master again
+  git checkout master
+
+# adding a remote origin (e.g. a github folder)
+ git remote add origin https://github.com/walkenho/MongoDB.git
+ git push -u origin master

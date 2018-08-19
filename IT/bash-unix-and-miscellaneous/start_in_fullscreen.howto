@@ -1,0 +1,2 @@
+bash: gnome-terminal --maximize
+firefox: firefox -fullscreen %u

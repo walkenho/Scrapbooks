@@ -1,0 +1,14 @@
+#######################################
+# Postcodes
+#######################################
+pip install postcodes
+# or have it from github (the other did not work for me):
+pip install git+git://github.com/e-dard/postcodes.git
+
+# Documentation at: http://postcodes.readthedocs.io/en/latest/
+
+######################################
+# Maps
+######################################
+
+conda install basemap

@@ -1,0 +1,18 @@
+#======================================================
+# How to use xmgrace in batch mode
+#======================================================
+
+# to see what you can do
+  cd /usr/share/grace/examples
+  ./dotest
+
+# then see the .agr files and find the relevant line
+
+# if you desing your plot with xmgrace and gui click on save parameterfile and save as file.par
+  # then (will give you .ps)
+  gracebat -param file.par datafile
+  # note: you can delete all default values from the .par file since they will be used automatically
+
+# to get .png
+  gracebat -hdevice PNG -param file.par datafile
+  

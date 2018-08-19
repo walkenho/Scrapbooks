@@ -1,0 +1,165 @@
+General:
+
+attributes()
+class()
+?function
+
+paste(my_char, collapse = " ")
+paste("Hello", "world", sep = " ")
+paste(1:3, c("X", "Y", "Z"), sep = "") pastes "1X" "2Y" "3Z"
+
+# Swirl 5 - Missing Values
+draw from standard normal distribution: rnorm()
+1000 draws from standard normal distribution: rnorm(1000)
+
+rep(x, n) repeats x n times
+
+select 100 elements at random from vectors y and z:
+my_data <- sample(c(y, z), 100).
+
+
+
+is.na() -> is na or not?
+x == NA does not work, since NA is not value, but placeholder for something non-existent
+
+sum() can be called on a vector
+
+# Swirl 6 - Subsetting Vectors
+Four types: logical, positive integer, negative integer, named
+logical:
+y <- x[!is.na(x)]
+positive integer:
+x[c(3,5,7)] subsetting a selection of values using c() as indexing
+negative integer:
+x[c(-2, -10)] gives us all BUT the 2nd and the 10th
+alternatively: x[-c(2,10)]
+Caution!!! R does not inforce boundaries for vectors!!!
+named:
+my_vec <- c(foo = 11, bar = 2, norf = NA)
+names() : names(my_vec)
+can be set afterwards: names(vect2) <- c("foo", "bar", "norf")
+
+identical function: identical()
+
+vect[c("foo", "bar")] -> chooses by name
+
+# Swirl 7: Matrices and Dataframes
+length(my_vector)
+convert vector to matrix by dim(my_vector) <- c(4,5)
+dim(my_natrix)
+
+CAREFUL!!! ->
+cbind(my_vec, my_matrix) if my_vec is characters -> matrix is characters !!! 
+DO instead:
+data.frame(patients, my_matrix)
+To name columns: create vector namevector, then
+colnames(my_data) <- namevector
+
+# Swirl 8: Logic
+& operates across vector, && only evaluates first member of vector
+similarly: | and || (OR operators)
+Order: all AND operators are evaluated before the OR operators
+
+logical functions:
+isTRUE()
+identical()
+xor() exclusive OR
+
+on vectors:
+which() -> takes vector as argument an returns elements of indices, that are true
+any()
+all()
+
+ints(numer), i.e. ints(10)
+
+# Swirl 9: Functions
+Sys.Date()
+mean()
+in order to see function source code: just type name without ()
+
+example:
+remainder(num, divisor = 2){
+num %% divisor
+}
+
+remainder(11, div = 2) possible through partial matching
+
+see arguments of functions: args()
+
+standard deviation: sd()
+
+One can passes functions as arguments to other functions!!!
+
+anonymous functions: evaluate(function(x){x+1}, 6)
+
+paste0(..., collapse) is equivalent to paste(..., sep = "", collapse)
+example: nth <- paste0(1:12, c("st", "nd", "rd", rep("th", 9))))
+
+use of ellipses:
+simon_says <- function(...){
+  paste("Simon says:", ...)
+}
+
+also: binary operators:
+
+"%p%" <- (left, right){
+left*right + 1
+}
+
+Important: Put the " " !!
+
+# Swirl 10: lapply and sapply
+lapply and sapply: two most important members of R's apply family of functions, also known as loop functions (also important: vapply(), tapply()). Implementing the Split-Apply-Combine strategy for data analysis ...
+
+dim(name_of_dataset)
+cls_list <- lapply(flags, class) -> lapply is for list-apply, returns list
+more useful here: vector 
+as.character(cls_list)
+sapply() -> calls lapply plus simplifiying -> simplify apply
+In general, if the result is a list where every element is of length one, then sapply() returns a vector. If the result is a list where every element is a vector of the same length (> 1), sapply() returns a matrix. If sapply() can't figure things out, then it just returns a list, no different from what lapply() would give you.
+
+good e.g. with sum, or mean
+sapply(flagcolors, mean) gives percentage of flags, that have color 
+
+range() returns min and max of numeric vector
+sapply(flagcolors, range) returns matrix
+
+unique() returns vector with only unique elements
+
+lapply(unique_vals, function(elem) elem[2]) -> inline one-line function definition, here: anonymous function
+
+# Swirl 11: vapply and tapply
+str(dataframe)
+summary(dataframe)
+table(flags$landmass) shows how many flags are there for each landmass 
+table(flags$animate) shows how many flasgs are there with animate object
+## vapply:
+- vapply helps preventing errors by fixing the expected outcome of sapply:
+vapply(flags, unique, numeric(1)) means that you expect a result, that is a numeric vector of length one. If this is not the case, vapply will throw an error.
+vapply(flags, class, character(1)) tells R that we expect the
+class function to return a character vector of length 1 when applied to EACH column of the flags dataset.
+- also: it can be faster for large datasets
+
+## tapply:
+- tapply(flags$animate, flags$landmass, mean) applies mean function to the 'animate' variable separately for each of the six landmass groups, thus giving us the proportion of flags containing an animate image WITHIN each landmass group (since animate is either 0 or 1)
+- tapply(flags$population, flags$red, summary) shows summary of populations with and without red in their flags
+
+# 12: Looking at Data
+useful for looking at datasets (here named plants):
+class(plants)
+dim(plants) -> rows, columns
+nrows(plants)
+ncol(plants)
+object.size(plants) -> space in memory
+names(plants)
+head(plants)
+head(plants, 10)
+tail(plants)
+summary(plants)
+if categorical variable is summarized as other, see whole one by: table(plants$variablename)
+str(plants)
+
+# 13: Simulations
+
+
+

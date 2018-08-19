@@ -1,0 +1,20 @@
+# Using Bootstrap to dynamically adapt layout to different devices
+
+# Add responsive design by including at the top of your html code:
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+
+# adapt images to screensize
+# add class "img-responsive" to an image 
+
+# center headings
+# add "text-center" to header class
+<h2 class="text-center"> my header </h2>
+
+# button class: 
+  class="btn"
+  class="btn btn-block" fills the whole screen width
+
+# Class "btn-primary" is main color of app. Useful for highlighting actions you want user to take.
+# Class "btn-info" is used to call attention to optional actions that the user can take.
+# Class "btn-danger" is button color to notify users that the button performs a destructive
+    action, such as deleting a cat photo

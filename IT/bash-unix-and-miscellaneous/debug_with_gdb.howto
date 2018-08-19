@@ -1,0 +1,20 @@
+While compiling:
+use compiler flag -g (should always be used): Creates the position table between source code and binary.
+
+Run gdb:
+gdb executable
+# e.g. gdb /home/walkenho/software/bin/octopus
+
+# ----------------------------------------------------
+in gdb:
+run
+# runs the code until it crashes
+
+bt
+# backtrace 
+
+up
+# goes up in backtrace tree
+
+down 
+# goes down in backtrace tree

@@ -1,0 +1,7 @@
+# How to send mail from terminal
+# type in shell:
+
+echo hallo | mailx -s Testmail -c freund1@wherever.com ich@whereeverelse.com
+
+# -c = cc
+# -s = subject

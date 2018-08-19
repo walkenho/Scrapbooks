@@ -1,0 +1,41 @@
+#===============================================================
+# Latex Tricks
+#===============================================================
+
+#================================
+#  Checked lists
+
+\usepackage{wasysym} % für die benutzten Symbole
+...
+\begin{itemize}
+\item[\Square] offener Punkt
+\item[\XBox] angekreuzter Punkt
+\item[\CheckedBox] abgehakter Punkt
+\end{itemize}
+
+# How to use different color schemes in latex beamer
+  Download BeamerColor.sty from internet
+  sudo mv BeamerColor.sty /usr/share/texmf-texlive/tex/latex/.
+  sudo mktexlsr
+  put into header of beamer: 
+  \documentclass[xcolor=dvipsnames, green]{beamer} # xcolor=dvipsnames has to be activated
+  \usepackage{BeamerColor}
+  \usetheme{Boadilla} # chooses theme
+  \usecolortheme[named=SeaGreen]{structure} # choose whatever color you want
+  # \structure{blabla} cannot be used in math environment
+  # solution: find rgb code in BeamerColor.sty and put in header:
+  # \definecolor{name_you_want}{rgb}{rgb_code_from_BeamerColor.sty}
+  # then you can use \textcolor .. in math environment
+
+# How to install tex-live 2014:
+  # Get the packet from the internet
+  wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl.zip
+  # Unzip it
+  unzip install-tl.zip
+  # Install with admin rights
+  sudo ./install-tl
+  i
+  # Set the path:
+  PATH=/usr/local/texlive/2014/bin/i386-linux:$PATH 
+  # This also installed tlmgr, you can show its help by:
+  tlmgr --help 

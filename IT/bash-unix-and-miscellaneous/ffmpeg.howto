@@ -1,0 +1,9 @@
+ffmpeg -sameq -y -r 10 -i 'frame_%07d.png' output.flv
+
+to change the output format, just change the file extension
+e.g. output.avi instead of output.flv
+
+possible conversion formats:
+flowplayer (flv)
+avi (avi)
+quicktime(for apple) (mov)

@@ -1,0 +1,5 @@
+# concatenate two pdfs:
+pdftk file1.pdf file2.pdf cat output newFile.pdf
+
+# trimming pages or cutting out specific pages (this takes 1-9 and 26-end):
+pdftk myDocument.pdf cat 1-9 26-end output removedPages.pdf 

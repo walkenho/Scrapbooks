@@ -1,0 +1,131 @@
+#-----------------------------------------------
+# Nice configuration
+# --------------------------------------------
+
+# create .bashrc with the content as in the one of oscar
+
+# create file .inputrc with the following content
+
+---------------------------------------------
+# start typing the first letters of a command and use PgUp/PgDown
+# to browse in the history of all commands with the same initial letters
+"\e[5~":        history-search-backward
+"\e[6~":        history-search-forward
+
+# Type Ctrl-Left/Ctrl-Right to jump one word left/right
+"\e[1;5D":  backward-word
+"\e[1;5C":  forward-word
+"\e[3~":    delete-char
+"\e[1;5H":  backward-kill-word
+----------------------------------------------
+
+# modify colour schemes
+  echo $LS_COLORS
+  # then take this and write in bashrc
+  LS_COLORS=....:*inp=00;95:
+  # gives octopus inp files different color
+
+# set aliases, e.g.
+  alias todo="todo -Av"
+
+# opening gnome terminal in full size instead of small
+  gnome-terminal --maximize
+
+
+#------------------------------------------------
+# Useful commandlines
+
+# show enviromental variables
+  env
+ 
+# show colour settings
+  env | grep LS_COLORS
+
+# diskusage (human readable)
+  du -h
+
+# column equivalent for cat
+  paste
+
+# counts files
+  ls file* | wc -l
+  # wc = wordcount
+  # wc -l counts lines
+  # wc can count words, lines and characters
+
+# lists directories only, not the content
+  ls -ld directory name
+  ls -1d directory name 
+  ls -d directory name 
+
+# calculator
+  echo "5/4" | bc -l
+  # bc = basic calculator
+
+# saving answers into a variable
+  test=$(bash command)
+
+# tar and remove
+  tar -cvjf name.tar && rm -r name.tar
+  # does the second one, but only if the first one was finished without error
+
+# sorting
+  sort -n -k 2
+  # -n for numeric
+  # k for column number
+
+# getting back last argument from last command into current commandline
+  ESC .  
+
+# show former path (old working directory)
+  echo $OLDPWD
+
+# change into old working directory
+  cd - 
+
+# zip every file recursively with xz
+  find . -type f -exec xz -9v {} \;
+  # find everything of type file and execute xz
+  # -type d --> of type directory
+  # -type empty --> whatever
+
+# exit a script as soon as there is any error
+# put at the beginning
+  set -e
+# IMPORTANT: put at the end
+  set +e
+  # since this command also works for the bash and closes the bash if it cant find command or anything else
+
+# how to delete * (stars, not all)
+  mc
+  # opens the midnight commander (if it can't exit properly put into bg and then kill)
+
+# produce output regularly
+  watch -n 1 job_to_do
+  # e.g. watch -n 1 squeue
+
+# to see pics and browse through them
+  qiv *.png
+  # vorblaettern:
+  space
+  # zurueckblaettern:
+  backspace
+  # zoom in and out:
+  + and -
+
+# substituting one colour in figures by another one using convert
+  convert figure.png -fill purple -opaque yellow figure_new.png
+  # converts everything yellow in figure into purple and saves it as figure_new.png
+
+# put all output from a loop in a file
+  for x in $(seq 1 100); do tmp=$(echo $x*0.1 | bc -l) tmp2=$(echo "s($x*0.1)" |  bc -l); echo $tmp $tmp2 ; done > output.dat
+  # alternatively (if you want to work with the data)
+  for x in $(seq 1 100); do tmp=$(echo $x*0.1 | bc -l) tmp2=$(echo "s($x*0.1)" |  bc -l); echo $tmp $tmp2 ; done | grep 0.1
+
+# download content from the internet
+  wget url
+
+# use sed to replace line in file
+ sed -i '13 c\# kick time        600.0000000000' file
+ # replaces the 13th line by the content after the \ in the file 
+ # -i performs recursively on the file

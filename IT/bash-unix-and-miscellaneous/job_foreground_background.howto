@@ -1,0 +1,15 @@
+#==========================================
+# how to use the jobs command
+# =========================================
+
+# tells you which jobs are in the background
+  jobs
+
+# puts in foreground
+  fg %jobnumber
+
+# puts to background
+  bg
+
+# kills job
+  kill %jobnumber

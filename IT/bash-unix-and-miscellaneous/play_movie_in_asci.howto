@@ -1,0 +1,5 @@
+# play movie in black and white asci
+  mplayer -vo aa moviename
+
+# in colour asci
+  mplayer -vo caca moviename

@@ -1,0 +1,21 @@
+#====================================================================
+# How to nicely design firefox to properly use a dictionary e.g.
+#===================================================================
+
+Go to a dictionary as e.g. leo.org and look for a word
+
+Bookmark the resulting page
+
+Bookmarks --> Organize bookmarks
+
+Modify the bookmark:
+- Delete all obsolete things
+  (e.g. for leo (German-Spanish) one can delete everything except http://dict.leo.org/esde?lp=esde&search=seachword
+- Substitute searchword by  %s  -->  http://dict.leo.org/esde?lp=esde&search=%s
+- Give it a tag (e.g. d)
+
+Now one can type "d searchword" in the address line of firefox and gets to the leo page which looks for searchword
+
+That works for all pages, that allow this kind of search
+
+Happy searching!

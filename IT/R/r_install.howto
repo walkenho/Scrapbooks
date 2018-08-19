@@ -1,0 +1,42 @@
+# install R
+# install R:
+  apt-get install r-base
+# install the R GUI:
+  apt-get install rwkward # does not work, but installation through software center possible
+# install RStudio:
+# then go to software center
+  # go to https://www.rstudio.com/products/rstudio/download/ and select version of ubuntu to download
+  # download 
+
+#######################################
+# update to newer R
+#######################################
+#Uninstall old R
+sudo apt-get remove r-base-core
+
+#Open sources.list
+sudo nano /etc/apt/sources.list    
+
+#and add deb to it
+deb http://cran.rstudio.com/bin/linux/ubuntu precise/
+#precise is your ubuntu name (may be different)
+
+#Add key to sign CRAN packages
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+
+#Add specific PPA to the system
+sudo add-apt-repository ppa:marutter/rdev
+sudo apt-get update
+sudo apt-get upgrade
+
+#installing
+sudo apt-get install r-base
+
+#From R to check version
+version
+#should give you
+version.string R version 3.0.0 (2013-04-03)
+
+
+# in order to install Swirl, one needs
+sudo apt-get install libcurl4-openssl-dev

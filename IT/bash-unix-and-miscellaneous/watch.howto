@@ -1,0 +1,10 @@
+#--------------------------------------------------
+# watch: Repeating commands all over again
+#------------------------------------------------
+
+# Repeats command cmd every 2 seconds:
+watch cmd
+
+# Repeats command cmd every k seconds:
+watch -n k cmd
+

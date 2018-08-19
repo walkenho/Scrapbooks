@@ -1,0 +1,23 @@
+#---------------------------------------------------------
+# How to create a user using commandline options
+# -------------------------------------------------------
+
+
+# everything as su
+  sudo su
+
+# create user and set pwd
+  useradd jalberdi004
+  passwd jalberdi004
+
+# afterwards create home
+
+  cd /home
+  mkdir jalberdi004
+
+# change ownership
+  chown jalberdi004:jalberdi004
+
+# modify shell type (is this really what it does? I think so)
+  vi /etc/passwd
+  # and change the line from sh to bash

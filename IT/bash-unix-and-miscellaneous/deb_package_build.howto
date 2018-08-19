@@ -1,0 +1,21 @@
+#########################################
+# how to build a debian package
+########################################
+
+# in general to build deb packages one needs devscripts
+
+sudo apt-get install devscripts
+
+
+# example: psi3
+
+sudo apt-get source psi3
+sudo apt-get build-dep psi3
+
+cd psi3/debian
+
+debuild
+
+# then go one step higher and do
+
+dpkg -i name.deb

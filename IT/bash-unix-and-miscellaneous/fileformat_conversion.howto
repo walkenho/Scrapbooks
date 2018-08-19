@@ -1,0 +1,7 @@
+#------------------------------------------------
+# how to convert between different file types
+#------------------------------------------------
+
+# png to pdf
+  convert example.png example.pdf
+  # convert belongs to ImageMagick package

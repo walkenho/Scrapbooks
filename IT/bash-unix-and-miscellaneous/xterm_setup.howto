@@ -1,0 +1,29 @@
+
+
+##########################
+# setting up a proper font
+
+# helps defining a proper font 
+xfontsel
+
+# there you choose the font that you want to use
+# then you copy the string-description of the font and type
+
+xterm -fn "string-descriptor"
+# the " "  are needed
+
+# then set the alias in .bashrc
+
+
+#######################################
+# allow for inshell marking in xterm
+
+# add into .Xdefaults:
+
+---------------------------------------------------
+xterm256*VT100*Translations: Alt <KeyPress>a: select-cursor-start() select-cursor-end(PRIMARY, CUT_BUFFER0) \n\
+                             Alt <KeyPress>c: start-cursor-extend() select-cursor-end(PRIMARY, CUT_BUFFER)
+--------------------------------------------------
+
+# apply the changes
+xrdb -merge .Xdefaults

@@ -1,0 +1,25 @@
+# List environments
+conda info --envs
+
+# Create new environment
+conda create -n py27 python=2.7 anaconda
+conda create -n py35 python=3.5 anaconda
+
+# Activate environment python3
+source activate python3
+
+# Install package into current environment:
+conda install numpy
+
+# Install package into environment bunnies:
+conda install --name bunnies numpy
+
+# for programs that are not available:
+pip install programname
+
+# Check installed packages:
+conda list
+
+
+# my packages:
+pip install nltk

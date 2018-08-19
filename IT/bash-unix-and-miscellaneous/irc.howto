@@ -1,0 +1,84 @@
+#======================================================
+ How to set up and use IRC on your own pc
+#======================================================
+#======================================================
+
+
+Setting up
+==================================================
+
+  sudo apt-get install ircd-irc2 
+  sudo apt-get install ircd-irc2 irssi
+
+
+
+Getting started (user)
+===================================================
+
+
+# nice feature: open a screen for your irc session
+  screen -S irssi
+
+
+# inside the screen
+  irssi -n jessica -c localhost #makes you enter the program
+
+# see existing channels
+  /list
+
+# which channels are you running around in
+  /channels
+
+# and who else?
+  /who
+
+# create a new or join an existing conversation
+  /join &name_of_conversation
+
+# give someone else op rights
+  /op person_to_op
+
+# change windows
+  Alt number_of_window  
+  
+  #(overview window is number 1)
+  # if Alt does not work try ESC
+
+
+# one can join several conversations
+  just do in main window, each conversation will have own window
+
+
+# quit a conversation
+ /part
+ # or
+ /wc #(windows close), can be used even if network is disconnected
+
+
+# start private conversation
+  /q name_of_person_to_talk_to  #(q is abbr. of query)
+
+
+# end private converstion
+  /q  
+  #in respective window
+
+
+# loops over all window, e.g. write hi all in all
+  /foreach window hi all!
+
+
+# get out of IRC
+  /bye
+
+
+
+Useful links
+===================================================================
+
+# on screen (including proper shortcut list) and on IRSSI (IRC client)
+http://quadpoint.org/articles/irssi
+
+# screen and IRSSR (nice tricks and playarounds)
+http://lizzie.spod.cx/screenirssi.shtml#1
+

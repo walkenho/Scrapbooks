@@ -1,0 +1,84 @@
+#======================================================
+ How to set up and use screen
+#======================================================
+#======================================================
+
+
+Setting up
+==================================================
+
+# to have the settings as we are used to at oscar (the bell line at the bottom), generate file .screenrc with content
+
+----------------------------------------
+vbell off
+caption always "%{= .b}%{.g}%H %{.k}| %{.m}%Y-%m-%d %{.m}%c %{.k}| %{.k}%?%-Lw%?%{.r}%n*%f %t%?(%u)%?%{.k}%?%+Lw%? |%{.b} Load: %l %{.k}| %{.c}%u"
+-------------------------------------------
+
+
+Getting started
+=========================================================================================
+
+# show existing screens
+screen -ls
+
+# open a screen with name zuckerwatte
+screen -S zuckerwatte
+
+# attach to a screen
+screen -x
+
+# or (if there is more than one)
+screen -x zuckerwatte
+
+# if there is more than one with the same name, but they have numbers
+screen -r 5822.pts-16.oscar
+
+# detache from screen
+screen -d
+
+
+
+In Screen
+==================================================================
+
+in screen commands are handled by putting Crtl+A to send to screen program instead of to shell
+
+
+# open new window
+Crtl-a c
+
+# change between windows
+Crtl-a p # previous
+Crtl-a n # next 
+Crtl-a number # number of screen you want to change to
+
+# change to flow
+Crtl-A f
+
+# to scroll in history
+Crtl-A [
+  # to get out of this mode again
+  Crtl-A ]
+
+# adapt screen to respective screen measure
+Crtl-a ???
+
+# leave screen
+screen -d
+
+# kill screen
+Crtl-a k y
+
+
+
+Helpful links:
+===============================================================
+
+# on screen
+http://www.rackaid.com/resources/linux-screen-tutorial-and-how-to/
+
+# on screen (including proper shortcut list) and on IRSSI (IRC client)
+http://quadpoint.org/articles/irssi
+
+# screen and IRSSR (nice tricks and playarounds)
+http://lizzie.spod.cx/screenirssi.shtml#1 

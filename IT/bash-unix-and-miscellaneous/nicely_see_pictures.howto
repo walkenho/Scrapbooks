@@ -1,0 +1,12 @@
+# program to nicely see pics
+  qiv *.png
+
+# vorblaettern
+  space
+
+# zurueckblaettern
+  backspace
+
+# zoom in and out
+  + and -
+

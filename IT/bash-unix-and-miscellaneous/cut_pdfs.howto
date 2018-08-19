@@ -1,0 +1,51 @@
+# extract pages 1 2 4 and 5 from old file and put into newfile:
+  pdftk myoldfile.pdf cat 1 2 4 5 output mynewfile.pdf
+
+# merge several pdfs into one:
+  pdftk pg_0001.pdf pg_0002.pdf pg_0004.pdf pg_0005.pdf output mynewfile.pdf 
+
+# a sample script found for a complicated task:
+    ======================
+    #!/bin/bash
+
+    #first arg is a file name
+    export file=$1
+
+    #second argument is pages per file
+    export ppd=$2
+
+    pagecount=$(pdfinfo -- "$file" 2> /dev/null | awk '$1 == "Pages:" {print $2}')
+
+    echo document $file has $pagecount pages
+    echo splitting per $ppd pages
+
+    currentp=1
+    secn=1
+    while [ "$currentp" -le "$pagecount" ]; do
+
+    let modl=$currentp%$ppd
+
+    if [ 0 -eq $modl ]; then
+    let pbeginning=$currentp-$ppd+1
+    let pend=$currentp
+    echo " $pbeginning $pend"
+    pdftk $file cat $pbeginning-$pend output "$file"_"$secn".pdf
+    let last=$currentp
+    let secn=$secn+1
+    fi
+
+    #last page
+    if [ $currentp -eq $pagecount ]; then
+    if [ $last -ne $currentp ]; then
+    let secn=$secn+1
+    let pbeginning=$last+1
+    let pend=$currentp
+    echo "last: $pbeginning $pend"
+    pdftk $file cat $pbeginning-$pend output "$file"_"$secn".pdf
+    fi
+    fi
+
+    let currentp=$currentp+1
+
+    done
+

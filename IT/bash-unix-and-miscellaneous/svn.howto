@@ -1,0 +1,19 @@
+# --------------------------
+# important commands for svn
+# --------------------------
+
+# checkout octopus
+svn co http://www.tddft.org/svn/octopus/trunk
+
+# checkout specific version
+svn co -r 6512  http://www.tddft.org/svn/octopus/trunk
+
+# status report
+  svn status
+
+# add file
+  svn add fullfilename.F90 (with path from trunk)
+  # do commit afterwards
+
+# commit all modified files
+  svn commit -m "commit message"

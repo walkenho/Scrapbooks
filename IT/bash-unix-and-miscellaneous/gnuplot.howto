@@ -1,0 +1,13 @@
+# ===============================================================
+# gnuplot tips and tricks
+# ===============================================================
+
+# install gnuplot 4.4 in Ubuntu 10.04 LTS
+  wget http://ftp.us.debian.org/debian/pool/main/g/gnuplot/gnuplot-nox_4.4.0-1.1+b1_i386.deb
+  wget http://ftp.us.debian.org/debian/pool/main/g/gnuplot/gnuplot-doc_4.4.0-1.1_all.deb
+  wget http://ftp.us.debian.org/debian/pool/main/g/gnuplot/gnuplot-x11_4.4.0-1.1+b1_i386.deb
+  wget http://ftp.us.debian.org/debian/pool/main/g/gnuplot/gnuplot_4.4.0-1.1_all.deb
+  sudo dpkg -i gnuplot*
+
+# set terminal to display in asci
+  set term dumb

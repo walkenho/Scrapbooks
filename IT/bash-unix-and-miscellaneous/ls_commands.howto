@@ -1,0 +1,11 @@
+# ============================================
+# fun with ls
+# ===========================================
+
+# lists only directory (without content)
+  ls -ld directory name
+  # e.g. to match to directory name
+	
+# lists also only directory
+  ls -1d 
+  # lists only one line

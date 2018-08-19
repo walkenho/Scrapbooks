@@ -1,0 +1,461 @@
+#--------------------------------------------------
+# Python: Needful Things (who gets the hint, gets a cookie)
+#------------------------------------------------
+
+
+#-----------------------------------
+# How to install newer version of Scipy (and / or / etc Numpy)
+#----------------------------------
+
+# Get developer tools
+  sudo apt-get install python-dev
+
+# Download tar file from internet
+# untar and unzip (suprise, surprise)
+# enter folder
+# install into folder, e.g. /home/walkenho/bin/python-modules
+  python setup.py install --prefix=/home/walkenho/bin/python-modules
+# add to .bashrc the line:
+  # export PYTHONPATH=/home/walkenho/bin/python-modules/site-packages:$PYTHONPATH
+# proceed to install next package 
+  # all are going to be in the same folder (if you installed them there of course)
+
+
+
+#-----------------------------------
+# General
+#----------------------------------
+
+- access to python variables always by []
+
+# useful modules
+  # plotting
+	matplotlib
+  # numerical precision: 
+	numpy
+  # provides interactive environment (which can be used with matplotlib ?)
+	pylab
+
+# how to import modules (libraries)
+  # if there are two modules, that have objects with same names, one has to use option b)
+  # a) to enable direct calls of an object (but a bit dirty)
+       import <module>
+       # then one can call directly, e.g.
+       show()	
+  # b) cleaner
+       from <module> import <object>
+       from <module> import *
+       # then one has to call by module.object			
+       pyplab.show()
+  # to save long terms
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+# lists
+  - empty list: a = list()
+  - initialized list: a = [0,5,7]
+
+# loops
+  for ii in range(10)
+  for ii in range(1,10,2)
+
+# dictionary
+  b = dict()
+  b={"name":"Clown","nosecolour":"red"}
+  print b["nosecolour"] --> red
+
+# string manipulations
+  text = "What are you doing?"
+  x = text.split() 
+	# splits by white space
+  ",".join(x) 
+	# joins using the link in " "
+  	# --> What,are,you,doing?
+  "blabla".join(x)
+	# --> Whatblablaareblablayoublabladoing?
+  print "\n".join(x)
+	# joins by using linebreak
+	# to be properly interpreted has to come with print
+
+# how to define whole passages as strings
+  put them in """ text """
+  --> text is not interpreted
+
+#-----------------------------------
+# plotting with python
+# --------------------------------
+
+Needed modules:
+   matplotlib
+
+Optional:
+   pylab
+
+# plot to screen
+  pylab.show()	
+  # should come at the very end
+
+# plot to file
+  savefig("plotname.png")
+  # looks for extension (here: png) and save in format according to extension
+
+# several plots together:
+  pylab.subplot(3 2 1)
+  # 3 in x, 2 in 1, current one is the first, where the enumeration is
+  #  1 2 3 
+  #  4 5 6 
+
+
+# ----------------------------------------------------------------------
+# Python Tutorial
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# Chapter 2
+# ----------------------------------------------------------------------
+  
+# Ending the prompt: Crtl + D
+# Doing single commands from the shell:
+  python -c command [arg] 
+  # preferably with command in single quotes
+  
+  python -m module [arg]
+  # executes source file as if you had spelled out its full name on the command line
+
+  # runs script and enters interactive mode afterwards
+  python -i -m module [arg]
+
+# Argument passing
+  Arguments, that are passed to python at turned into a list of strings and assigned to the variable argv in the sys module.
+  It always has at least one entry sys.argv[0], which is empty in interactive mode, '-' if the script name is given as standard
+  input, '-c' if the -c command was used and the full name of the module if the '-m' option was used. 
+
+# Continuation of lines in the interactive mode signalised by "..." at the beginning of the new line
+
+# Standard encoding of python scripts is UTF-8. There is an option to change that. It has to appear in the second line
+# of the script file.
+
+# read a file, if it exists:
+  if os.path.isfile('.pythonrc.py'): exec(open('.pythonrc.py').read())
+
+
+
+# -------------------------------------------------
+# Chapter 3: An informal introduction to Python
+# -------------------------------------------------
+
+# 3.1 Using Python as Calculator
+
+# 3.1.1 Numbers
+
+# Integer divison returning floor
+  7 // 3 
+  # returns 2
+
+# Value can be assigned to several variables simultaneously
+  x = y = z = 0
+
+# Types
+  # direct conversion
+  3 * 1.5 
+  returns 4.5
+  # complex numbers
+  # indicated by j or J
+  1j
+  3+1j
+  # also possible:
+  complex(3,1)
+# extract real and imaginary part
+  z=1.5+0.5j
+  z.real
+  z.imag
+  abs(z) # absolute value of complex number
+
+# in interactive mode: last output is assigned to _
+  5+3
+  returns 8
+  _ + 7 returns 15
+
+# usefull commands:
+  round(17.9734987, number of digits)
+
+# 3.1.2 Strings
+
+  # there is a lot of stuff at the tutorial page about escaping, etc 
+  # also:
+  # strings can be glued together with +
+  word = 'Help' + 'A'
+  'start' + word*5 + 'end'
+  returns: 'startHelpAHelpAHelpAHelpAHelpAend'
+  # strings are divided into characters:
+  word[0:2] 
+  returns 'He'
+  word[:2]
+  returns 'He'
+  word[2:]
+  returns 'lpA'
+  # strings cannot be assigned
+  word[0] = x
+  returns an error
+  # but creating new strings with partial strings is easy and efficient
+  'x' + word[1:] 
+  returns 'xelpA'
+  # to big indices not a problem
+  word[1:100] 
+  returns 'elpA' without complaint
+  word[10:] returns ''
+  word[2:1] returns ''
+  # negative number indices count from the right
+  word[-2]
+  returns 'p'
+  word[-2:]
+  returns 'pA'
+  # note: -0 is the same as 0 and therefor starts at the beginning
+ 
+# useful commands
+  len(word)
+  # returns the number of letters
+
+# More detailed links provided
+
+# 3.1.3 About Unicode
+  # You can encode strings into e.g. utf-8 by
+  "Äpfel".encode('utf-8')
+  # returns b'\xc3\x84pfel'
+ 
+# 3.1.4 Lists
+  a = ['spam', 'eggs', 100, 1234 ]
+  # same way of concatenation as on strings
+  2*a[1:2] + ['Boo!']
+  returns ['eggs', 100, 'eggs', 100, 'Boo!']
+  # unlike strings, change of particular slize of list is possible, that can even change the list size
+  a[2] = a[2] + 23
+  afterwards 
+  a returns ['spam', 'eggs', 123, 1234]
+  a[0:2] = [1, 12]
+  afterwards 
+  a returns [1, 12, 123, 1234]
+  # delete some
+  a[0:2] = []
+  afterwards
+  a returns [123, 1234]
+  # insert some
+  a[1:1]=['blue', 'bla']
+  afterwards a returns [123, 'blue', 'bla', 1234]
+  # insert copy of itself at the beginning
+  a[:0] = a
+  # clear all:
+  a[:] = []
+
+# one can have lists in a list
+  q = [2, 3]
+  p = [1, q, 4]
+  len(p) --> 3
+  p[0] --> 1
+  p[1] --> [2, 3]
+  p[1][0] --> 2
+  
+# Useful commands:
+  len(a) also works for lists
+# appending to the end of a list
+  p[1].append('xtra')
+  p --> [1, [2, 3, 'xtra'], 4]
+  q --> [2, 3, 'xtra'] (Attention: p[1] and q here really refer to the same object!)
+
+# 3.2 First Steps Towards Programming
+  example:
+  a, b = 0, 1
+  while b , 10:
+     print(b)
+     a, b = b, a+b
+  # multiple assignments
+  a, b = 0, 1
+  # also possible (expr. on the left are evaluated first, then the things on the right assigned)
+  a, b = b, a+b
+
+  # while syntax:
+  while b , 10:
+
+  # print:
+  print(b)
+  print('The value of b is', b)
+  # can use end to tell with which symbol to end line instead of \n
+  print(b, end = ',')
+  --> 1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,
+
+
+# -------------------------------------------------
+# Chapter 4: More Control Flow Tools
+# -------------------------------------------------
+
+# 4.1 if
+  if x < 0:
+    blabl
+  elif x == 0:
+    blabla2
+  else:
+    blabla3
+  # elif and else are optional
+  # if ... elif ... elif replaces case or switch from other languages
+
+# 4.2 for
+  # for iterates over items of any sequence (list or string)
+  words = ['cat', 'window', 'defenestrate']
+  for w in words:
+    print(w, len(w))
+
+  for w in words[:]:
+    if len(w) > 6:
+      words.insert(0,w)
+   # this modify words directly. python does not make implicit copy in for statement
+   
+# 4.3 range()
+  # examples:
+  range(5, 10)
+  range(0, 10, 3)
+  range(-10, -100, -30)
+
+  # to iterate over indices of sequence, combine range() and len():
+  a = ['Mary', 'had', 'lamb']
+  for i in range(len(a)):
+    print(i, a[i])
+  # often better alternative: enumerate, also see 5.6
+
+  An object is iterable if it is suitable as target for functions and constructs that expect sth from which they can obtain successive items until supply is exhausted. for statement e.g. is such an iterator. Another iterator: list()
+
+  # list()
+  # creates lists from iterables
+  list(range(4))
+  [0, 1, 2, 3]
+
+# 4.4 break and continue, else
+  break
+  # breaks out of smallest for or while loop
+  else
+  # loops can have else clause. It is executed, if loop terminates through exhaustion of list (for) or when the condition becomes false (while). It is not executed after a break statement.
+  #
+  >>> for n in range(2, 10):
+  ...     for x in range(2, n):
+  ...         if n % x == 0:
+  ...             print(n, 'equals', x, '*', n//x)
+  ...             break
+  ...     else:
+  ...         # loop fell through without finding a factor
+  ...         print(n, 'is a prime number')
+  ...
+  # Attention: else belongs to the for loop!
+  # else in for/while loop closer to else in try than to if/else
+
+  continue
+  # continues with next iteration of loop
+  >>> for num in range(2, 10):
+  ...     if num % 2 == 0:
+  ...         print("Found an even number", num)
+  ...         continue
+  ...     print("Found a number", num)
+
+# 4.5 pass
+  pass
+  # does nothing
+  # useful if you need a statement to not produce errors, but dont want anything done (e.g. while programming or
+  # creating minimal classe or whatever
+  
+# 4.6 Defining Functions
+  >>> def fib(n):    # write Fibonacci series up to n
+  ...     """Print a Fibonacci series up to n."""  
+  # If first line contains comment, this comment can be used for documentation.
+  # all variable assingments in function, store variable in local symbol table
+  # global variables can be referenced, but not directly assigned a value
+  # actual arguments a passed using call by value 
+
+  # functions can be renamed
+  >>> f = fib
+  >>> f(100)
+
+  # function can be ended by
+  >>> return variable 
+  # or just by
+  >>> return
+  # if there is no return, then this is the same as return without variable and returns none
+
+
+# 4.7 More on Defining Functions: Functions with variable number of arguments
+# Three different ways, which can be combined
+
+# 4.7.1 Default Argument Values
+  def ask_ok(prompt, retries=4, complaint='Yes or no, please!'):
+    while True:
+        ok = input(prompt)
+        if ok in ('y', 'ye', 'yes'):
+            return True
+        if ok in ('n', 'no', 'nop', 'nope'):
+            return False
+        retries = retries - 1
+        if retries < 0:
+            raise IOError('refusenik user')
+        print(complaint)
+  # can be called with either only prompt variable or with any combinations of the other ones in addition
+  # ask_ok('Schreib jetzt')
+  # ask_ok('Schreib jetzt', 2)
+  # ask_ok('Schreib jetzt', 2, 'Das kann doch nicht so schwer sein')
+  # attention: default values evaluated at point of function definition and only that one time
+  
+  # arguments passed seem to get changed if they are mutable (list.append e.g. anyhow entries not?)
+  # numbers, strings and tuples are immutable, while dictionaries and lists are mutable.
+
+  # Default is evaluated only once. Then it uses the last one present in the function. 
+  # example:
+  def f(a, L=[]):
+    L.append(a)
+    return L
+  # if you dont want this, you can do e.g.:
+  def f(a, L=None):
+    if L is None:
+        L = []
+    L.append(a)
+    return L
+
+
+# Other usefull commands:
+  input
+  # usage: x = int(input("Please enter integer:")) 
+  
+  list.insert
+  # usage: list.insert(place, what to insert)
+ 
+  list.append
+  # usage: list.append(a)
+
+  # in statement
+  if ok in ('y', 'ye', 'yes'):
+          return True
+
+  # Takes a sequence of sentences like 'today is wednesday. it is cold.' and capitalizes the first letter of the
+  # sentences.
+  sentence='today is wednesday. it is cold.'
+  '. '.join(map(lambda x: x.capitalize(), sentence.split('. ')))
+
+
+# From learn python the hard way:
+#
+raw_input()
+# i.e. height = raw_input()
+raw_input("How old are you? ")
+
+pydoc command/...
+# show documentation of this comment
+# outside of python
+
+# An easy way to handle options:
+ from sys import argv
+ script, first, second, third = argv
+ # script will take the script name as input, everything else the other options after it 
+
+# file handling
+# possibilities:
+  file1 = open(filename)
+  file1.close() # saves and closes
+  file1.read()
+  file1.readline()
+  file1.truncate # deletes content
+  file1.write('stuff')

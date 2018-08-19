@@ -1,0 +1,47 @@
+# ----------------------------------------------
+# How to use vpn 
+# ---------------------------------------------
+
+# vpnc makes your computer be in the network for all purposes (including internet, etc)
+
+sudo apt-get install vpnc
+sudo vi /etc/vpnc/FHI-vpnc.conf
+
+      # put
+      # -------------------------------------------------
+      #
+      #
+      #
+      #
+      #
+      # -------------------------------------------------
+
+# to start
+  sudo vpnc /etc/vpnc/FHI-vpnc.con  
+  # Attention: Will kill most (if not all connections) because it shifts pc into network of fhi
+# to disconnect
+  sudo vpnc-disconnect
+
+
+# -----------------------------------------
+# How to set up ssh tunneling
+# -----------------------------------------
+
+ssh -Nv -L 2200:thnec1.rz-berlin.mpg.de:22 walkenhorst@ssh.rz-berlin.mpg.de
+ # connects port 2200 on the local machine via the ssh.rz-berlin.mpg.de to port 22 on thnec1
+ # it asks for the passwort of walkenhorst on ssh.rz-berlin.mpg.de
+ # one then has to type on the local machine
+ ssh -p 2200 walkenhorst@localhost
+ # that connects directly to thnec1
+ # it asks for the passwort of walkenhorst on thnec1.rz-berlin.mpg.de
+ 
+# one can put into the .ssh/config:
+  # ------------------------------------------------
+  # Host thnec1
+  # HostName localhost
+  # UserName walkenhorst
+  # Port 2200
+  # ------------------------------------------------
+
+
+# don't forget to drop your public key to .ssh/authorized_keys

@@ -1,0 +1,21 @@
+# ================================ 
+# how to use prog todo
+# ================================
+
+# get and install
+  sudo apt-get install devtodo
+
+# display todo list
+  todo
+
+# display with more details
+  todo -Av
+
+# add task
+  tda
+
+# mark task as done
+  tdd
+
+# delete task
+  tdr

@@ -1,0 +1,56 @@
+Data Types: atomic classes, vectors, lists, factors, missing values, data frames, names
+
+Data Types - Factors
+- ordered vs. unordered
+- created by the factor function
+- x <- factor(c("yes", "no", "yes"))
+- x<- factor(c("yes", "no", "yes"), levels = c("yes", "no")) switches baselinelevel
+- attribute: levels
+- table(x)
+- unclass(x) 
+- attr(,"levels")
+- baselinelevel is determined by alphabetical order
+
+# Missing Values
+NA or NaN
+is.na()
+is.nan()
+NaN is also NA, but not the other way round
+
+# Data Frames
+- attributes: row.names
+- data frames can be created by read.table() or read.csv
+- can be converted to matrix by data.matrix()
+- can be created explicitly by:
+	x <- data.frame(foo = 1:4, bar = c(T, T, F, T))
+
+# Names
+- good for writing readable code
+- x <- list(a=1, b=2, c=3)
+- for matrices: dimnames(m)
+- dimnames(m) <- list(c(1, 2), c(3,4))
+
+# Reading and Writing Data
+Principal functions: 
+- read.table, read.csv (same as read.table, but seperator is comma and header is true) for reading tabular data
+- readLines (reading text from textfile)
+- source <-> dump (reading and writing R code files)
+- dget <-> dput (reading and writing R code files)
+- load (reading in saved workspaces)
+- unserialize (reading single R objects in binary form)
+
+- read.table can be used without any further specifications, but many options can be set by hand
+
+# read.table
+- read help page
+- make rough calculation for required memory (8 bytes per numeric value), roughly twice as much needed
+
+# read large dataset:
+- set comment.char = "" if there are no comments
+- use colClasses arguments -> often MUCH faster
+- quick and dirty way:
+ 	initial <- read.table("datatable.txt", nrows = 100)
+	classes <- sapply(initial, class)
+	tabAll <- read.table("datatable.txt", colClasses = classes)
+- set nrows (does not make it faster, but saves memory)
+-  

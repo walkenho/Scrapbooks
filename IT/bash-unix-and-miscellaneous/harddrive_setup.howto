@@ -1,0 +1,84 @@
+# how to hard drive
+
+# print hard drive layout to screen
+  parted /dev/sdb print #(-->unrecoginized disk label --> we have to create the label first)
+# create partition label, means the table (if you want gpt or msdos layout, > 2TB do gpt)
+  parted /dev/sdb mklabel gpt
+# see again
+  parted /dev/sdb print
+# create partitions (maximamlly four primary partitions)
+# parted devicesname mkpart primary filesystemtype (optional) start end
+# first start is supposed to be 1
+  parted /dev/sdb mkpart primary ext2 1 20000
+  parted /dev/sdb print
+  parted /dev/sdb mkpart primary linux-swap 20001 22000 
+  parted /dev/sdb print
+# end of disk is -1, has to come in ' ' 
+  parted /dev/sdb mkpart primary '22001 -1'
+  parted /dev/sdb print
+# now we have the table, we only miss the filesystem
+# we wanted to take a look at the xfs filesystem
+  apt-get install xfsprogs 
+# make filesystem 
+# PAY ATTENTION TO WHAT YOU PUT IN /dev/... !!!
+  mkfs.xfs /dev/sdb3
+# create a mount point
+  mkdir /scratch
+  ls /scratch/
+  df -h #tells, where is what
+# mount to /scratch
+  mount /dev/sdb3 /scratch/
+# take a look at your pretty new partition :) either with
+  df -h
+# or with .. (more details, e.g. also the filesystem type)
+  mount
+# unmount again
+  umount /scratch 
+# now do it all over again for ext4   
+  mkfs.ext4 /dev/sdb3
+  # this says sth like "writing inode table"
+  # every file has a number and in the inode table the system finds
+  # information about owner, permissions, etc
+  # the ext file system create this table beforehand (the xfs on the fly why the formating is done instantaneously)
+  df -h
+  mount /dev/sdb3 /scratch/
+  df -h
+# to do the mount permenantly modify /etc/fstab
+# type to find the UUID
+  blkid
+# and add to fstab:	
+	_________________________________
+	# 2 TB hard disk 
+	 UUID=a9b402d0-fecd-4a26-a9a0-c00352a3e59d /scratch      ext4    defaults        0       2
+	_________________________________
+
+  vi /etc/fstab 
+
+# mounts everything, that is listed in /etc/fstab (that is what is done during boot-process)  
+  mount -a
+
+# now set permissions
+# make dir for user walkenho  
+  mkdir /scratch/walkenho
+# to see permissions  
+  ls -ld /scratch/walkenho/
+
+# change ownership of walkenho in group walkenho (make jessica happy)
+  chown walkenho.walkenho /scratch/walkenho/
+
+# measure timing of hard disk
+  hdparm -t /dev/sdb
+
+# to have convenient access to /scratch
+# do as user
+# go into home and type
+  ln -s /scratch/walkenho scratch
+
+# to check
+  cd scratch
+
+# to see path
+  pwd
+
+# to see real path
+  realpath .

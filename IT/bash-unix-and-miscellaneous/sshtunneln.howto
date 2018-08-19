@@ -1,0 +1,5 @@
+Description:
+jessica (oscar, port 2200) <-> gateway(ssh.rz ..., port 22) <-> cluster (thnec1, port 22)       
+
+ssh -N -L 2200:th1.mpg.de:22 walkenhorst@ssh.rz.de
+

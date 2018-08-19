@@ -1,0 +1,22 @@
+# Comments
+// Inline comment
+/* Two line
+    comment */
+
+# Var declaration
+var myName;
+var a = 5;
+
+myVar += 5;
+myVar *= 5;
+myVar++
+myVar--
+
+\'  single quote
+\"  double quote
+\\  backslash
+\n  newline
+\r  carriage return
+\t  tab
+\b  backspace
+\f  form feed

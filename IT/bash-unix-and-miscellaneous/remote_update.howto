@@ -1,0 +1,11 @@
+#===============================================================
+# How to remotely (or in generell shell) update your system
+#===============================================================
+
+# Update your local package index with the latest changes made in repositories
+  sudo apt-get update
+  # The APT package index is essentially a database of available packages 
+  # from the repositories defined in the /etc/apt/sources.list file. 
+
+# Install updates (after having updated package index)
+  sudo apt-get upgrade

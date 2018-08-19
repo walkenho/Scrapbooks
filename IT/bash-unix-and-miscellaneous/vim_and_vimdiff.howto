@@ -1,0 +1,81 @@
+# =================================================================
+#  vim
+# =================================================================
+
+# replace words in document between line a and b
+  # if replacement or to be replaced has /, use # as deliminator	
+  :a,bs/to be replaced/replacement/g
+
+
+# see the svn diff in vim and in colour
+  svn diff | vim -
+  # probably to get whatever into vim
+
+# sets numbering
+  :set nu
+
+# stop vim to leave all the ~files lying around
+  # in homedirectory make folder
+  mkdir ~/tmp
+  # put in .vimrc: 
+  set backupdir=~/tmp
+
+# case sensitive replacement
+  :s/old/new/gI
+
+# =================================================================
+#  vimdiff
+# =================================================================
+
+
+# open two files called e.g. new.txt and old.txt
+  vimdiff new.txt old.txt
+
+# put difference from on to the other
+  # go to the page and where you want to put it from and 
+  :diffput
+  # this puts whole differing block 
+ 
+  # to only put several lines
+  :startingline,endinglinediffput
+  :546;551diffput
+
+# get difference
+  :diffget
+
+
+# update register of differences
+  :diffupdate
+
+# change between windows
+  Crtl+W 
+  Arrow left resp. right
+# switching between windows
+  Crtl+WW
+
+The ":vertical" command can be inserted before another command that
+splits a window.
+
+MOVING BETWEEN WINDOWS
+
+        CTRL-W h        move to the window on the left
+        CTRL-W j        move to the window below
+        CTRL-W k        move to the window above
+        CTRL-W l        move to the window on the right
+
+        CTRL-W t        move to the TOP window
+        CTRL-W b        move to the BOTTOM window
+
+  Moving windows
+=====
+
+        CTRL-W K        move window to the upper
+        CTRL-W H        move window to the far left
+        CTRL-W J        move window to the bottom
+        CTRL-W L        move window to the far right
+
+=====================
+
+# open and close folds
+  zo # opens
+  zc # closes

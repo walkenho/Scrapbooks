@@ -1,0 +1,6 @@
+# How to find the URL of the podcasts you are subscribed to
+  # in your home-directory type
+  grep -A 5 -e podcast-feed .local/share/rhythmbox/rhythmdb.xml
+  # respectively
+  grep -A 5 -e podcast-feed .local/share/rhythmbox/rhythmdb.xml | grep location
+

@@ -1,0 +1,2 @@
+# Find out information about queue/partition settings on corvo
+more /etc/slurm/slurm.conf

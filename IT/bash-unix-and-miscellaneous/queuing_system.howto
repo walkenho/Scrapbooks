@@ -1,0 +1,25 @@
+# to change queue to use three slots:
+sudo qconf -Mq workq.3slots.qconf-sq ; qconf -Mp impi.3slots.qconf 
+
+# to change it to use four slots
+sudo qconf -Mq workq.4slots.qconf-sq ; qconf -Mp impi.4slots.qconf 
+
+qconf -sp impi # show queue config
+qconf -mp impi # make queue config
+
+
+# ---------------------------------------------
+# how to work with a queue
+# ---------------------------------------------
+
+# delete everything from the queue
+  qdel "*"
+
+# set job to hold
+  qhold JID
+
+# release job
+  qrls JID
+
+# show more information
+  qstat -f

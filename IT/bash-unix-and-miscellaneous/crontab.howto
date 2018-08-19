@@ -1,0 +1,14 @@
+# edit crontab via
+crontab -e
+
+# add the following line
+_____________________________________________________________
+# m h  dom mon dow   command
+00 04  *   *   *     the_command_you_want_to_be_executed
+__________________________________________________________________
+
+# this sets time to 4:00 every night
+
+# list current crontab
+  crontab -l
+

@@ -1,0 +1,10 @@
+####################################################
+# how to monitor a folder and start action if it changes
+####################################################
+
+
+
+# monitors a folder and if it changes, it does what comes after "do"
+
+while inotify -e create ordnername ; do .... ; done
+

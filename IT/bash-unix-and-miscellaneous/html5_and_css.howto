@@ -1,0 +1,171 @@
+# html needs doctype as first line:
+<!DOCTYPE html> #for html5
+
+<html lang="en">
+# html page structure:
+# mini version:
+
+<!DOCTYPE html> <!--for html5-->
+<html> <!-- could be: <html lang="eng"> -->
+  <head>
+    <title>A minimal web page</title>
+  </head>
+  <body>
+    <p>You are in the beginning stage of learning HTML.</p>
+  </body>
+</html>
+
+# Textstyle:
+<strong> </strong>
+<em> </em>
+
+# Comment:
+<!-- your comment here -->
+
+# Abbreviations:
+<abbr title="Hyper Text Markup Language">HTML</abbr>
+
+# Entities, name characters:
+&gt; denotes the greater-than sign (>)
+&lt; denotes the less-than sign (<)
+&amp; denotes the ampersand (&)
+&quot; denotes double quote (")
+
+
+# Style - attributes: color, background-color, font-size, font-family, width, 
+                border-color, border-width, border-style, 
+                border-radius (rounded edges, in px or in % (50% makes it round))
+# other attributes:
+                id
+
+<h2 style="color: red">CatPhotoApp</h2>
+
+# CSS style element:
+<style>
+h2 {color: red;}
+</style>
+
+# create a style class:
+<style>
+  .blue-text { color: blue; }
+  #some-id { background-color: green;} (ids are referenced with #)
+</style>
+
+# then use this class:
+<h2 class="blue-text">CatPhotoApp</h2>
+<h2 class="class1 class2">CatPhotoApp</h2>
+
+# font size:
+font-size: 30px;
+
+# font family:
+font-family: Sans-serif;
+font-family: Monospace;
+
+# fonts available everywhere:
+Monospace, Sans-serif, Serif
+
+# make a call to Google to load the Lobser font-family:
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+# degrading: use Helvetia, if Helvetia not available, use Sans-Serif
+p {
+      font-family: Helvetica, Sans-Serif;
+}
+
+# Images must have alt-atribute:
+<img src="https://www.your-image-source.com/your-image.jpg" alt="Author standing on a beach with two thumbs up. ">
+
+#### Links: a is for anchor
+<a href="...">label</a>
+# dead links: replace href="" by href=#:w
+
+#### unordered lists (bullet points)
+<ul>
+  <li>milk</li>
+  <li>cheese</li>
+</ul>
+### ordered lists:
+<ol>
+</ol>
+
+#######################################
+# Inputs
+########################################
+
+# Input box
+<input type="text">
+<input type="text" placeholder="this is placeholder text">
+
+# Submit buttons
+# Webform submitting data to a server
+# contains input box 
+# contains button that if pressed submits
+<form action="/url-where-you-want-to-submit-form-data">
+<form action="/url-where-you-want-to-submit-form-data" required>  <- makes the field required
+<button type="submit">this button submits the form</button>
+<input type= "text">
+</form>
+
+# Radio buttons:
+# You can use radio buttons for questions where you want the user to only give you one answer.
+# Radio buttons are a type of input
+# Each of your radio buttons should be nested within its own label element.
+# All related radio buttons should have the same name attribute.
+# Example: a pair of radio buttons
+<label><input type="radio" name="indoor-outdoor"> Indoor</label>
+<label><input type="radio" name="indoor-outdoor"> Outdoor</label>
+
+# Checkboxes:
+<label><input type="checkbox" name="indoor-outdoor"> Indoor</label>
+
+# Default: checked (for radio buttons and checkboxes)
+<label><input type="checkbox" name="indoor-outdoor" checked> Indoor</label>
+
+# Div element: multipurpose container (e.g. for background-colors: define class silver-background then set div to be of that class)
+<div class="silver-background"> </div>
+
+########################################
+# Padding, margin, border
+# Padding: distance between object and surrounding (e.g. text in a box)
+# Margin: distance between border of element and surrounding elements
+    padding, padding-top, padding-bottom, padding-right, padding-left
+    padding: top-value right-value bottom-value left-value (clock-wise)
+    padding: 20px 40px 20px 10px
+    same syntax for margin
+
+#######################################
+# CSS inheritance: style the body
+#######################################
+# everything inherits the body style
+# style are overwritten in order of declaration in style part: later declared ones take preference.
+  The order in the class part of the element does not matter.
+<style>
+    body{
+        color: black;
+    }
+    .pink-text{
+        color: pink;
+    }
+    .blue-text{
+        color: blue;
+    }
+</style>
+<h1 class="blue-text pink-text"> blabla </h1>  will be blue
+<h1 class="pink-text blue-text"> blabla </h1>  will be blue
+
+# id attributes always take preference over class attributes
+# inline style overwrites id style (<h1 style="color: white">)
+# if you want to make sure, sth is done, add !important to style declaration
+.pink-text{
+    color: pink !important;
+}
+
+#########################################
+# Hex codes
+#########################################
+
+# Instead of colors as names, one can also specify the color in hexcode 
+# hexcode: #00FF00 -> two digits for each of red, green, blue. Also possible: one digit per color.
+# alternatively: rgb(255, 255, 255)
+

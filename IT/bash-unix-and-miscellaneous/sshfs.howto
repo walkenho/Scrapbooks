@@ -1,0 +1,4 @@
+mkdir $HOME/local_folder
+sshfs username@ipadress:/home/folder $HOME/local_folder/
+fusermount -u $HOME/local_folder/
+
