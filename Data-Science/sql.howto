@@ -1,0 +1,16 @@
+# to run script within sqlite3:
+.read scriptname
+
+# if script describes how to setup db, this sets up the db and stores it:
+sqlite3 rating.db < rating.sql
+
+# simple queries from the command line:
+echo 'SELECT * FROM Movie;' | sqlite3 rating.db
+
+# Creating new tables:
+ # Delete the tables if they already exist 
+ drop table if exists Movie;
+ drop table if exists Reviewer;
+
+ # Create the schema for our tables
+ create table Movie(mID int, title text, year int, director text);
