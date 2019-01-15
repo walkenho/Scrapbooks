@@ -13,3 +13,36 @@ of the two functions. There are three main differences between df.merge() and df
 3. Join:
 
     df1.join(df2) by default implements a left join, df1.merge(df2) by default implements an inner join. 
+
+
+# DF rename
+In order to rename columns of a dataframe, one possibility is to set the column names directly:
+
+1. df.columns()
+    
+    df = pd.DataFrame({"A": [1, 2], "B": [4, 5]})
+    df.columns = ['a', 'c]
+
+2. df.rename()
+    
+    Another option in the same style as PySparks .withColumnRenamed is the *rename()* method:
+    
+    df = pd.DataFrame({"A": [1, 2], "B": [4, 5]})
+    df.rename(index=str, columns={"A": "a", "B": "c"})
+        a  c
+     0  1  4
+     1  2  5
+    
+    df.rename() can also be used with string methods:
+    df = pd.DataFrame({"A": [1, 2], "B": [4, 5]})
+    df.rename(str.lower, axis='columns')
+       a  b
+    0  1  4
+    1  2  5
+    
+    or to reset the index:
+    df = pd.DataFrame({"A": [1, 2], "B": [4, 5]})
+    df.rename({0: 2, 1: 4}, axis='index')
+       A  B
+    2  1  4
+    4  2  5
