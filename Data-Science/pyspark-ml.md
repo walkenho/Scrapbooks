@@ -1,6 +1,6 @@
 # General prep
 [Simple ways to deal with nulls](#simple-ways-to-deal-with-nulls)
-
+[Split into train/test](#split-into-train/test)
 
 ## Simple ways to deal with nulls
 (a) fill nulls 
