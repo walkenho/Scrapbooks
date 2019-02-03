@@ -15,7 +15,7 @@ for column in df.columns:
     df = df.filter(col(column).isNotNull())
 ```
 
-## Split into train and test
+# Split into train and test
 ```
 train, test = df.randomSplit([0.7, 0.3], seed=42)
 ```
