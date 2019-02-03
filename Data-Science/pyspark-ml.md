@@ -1,4 +1,6 @@
 # General prep
+[Simple ways to deal with nulls](#simple-ways-to-deal-with-nulls)
+
 
 ## Simple ways to deal with nulls
 (a) fill nulls 
