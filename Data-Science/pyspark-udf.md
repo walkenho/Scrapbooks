@@ -25,7 +25,7 @@ def extractAge(mystring):
 ```
 
 ### Step 2: Create the udf (user-defined function)
-`extractAge()` takes a single input and returns a single output of type float. The udf-syntax therefore is:
+The function `extractAge()` takes a single input and returns a single output of type float. The udf-syntax therefore is:
 ```
 extract_age_udf = udf(lambda row: extractAge(row), FloatType())
 ```
