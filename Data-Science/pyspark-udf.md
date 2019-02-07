@@ -1,9 +1,10 @@
-This entry deals with how to use a udf. First, we take a look at how to use a udf in the simplest case: a function with one
-input and one output variable. Afterwards we look at leveling up our udf abilities and using a function with multiple in- and 
+# How to Convert Functions into UDFs in Pyspark
+This entry deals with how to code and how to use a udf. First, we take a look at how to proceed in the simplest case: 
+a function with one
+input and one output variable. Afterwards we level up our udf abilities and use a function with multiple in- and 
 output variables.
 
-A general remark: When dealing with udfs, it is important to be aware of the type of output that your function returns. If you get this 
-one wrong, your udf will return only nulls.
+A general remark: When dealing with udfs, it is important to be aware of the type of output that your function returns. If you get the output data types wrong, your udf will return only nulls.
 
 For both of the examples we need to import the following modules:
 ```
@@ -119,5 +120,30 @@ df_new.show()
 
 ```
 
-
+## Example of What Happens if you get your Output Data Type Wrong
+As mentioned above, if you get your output data type wrong, your udf will return nulls. Here is a modified version of the 
+one-in-one-out example above. If we assume the return to be float, but in fact, the function returns an integer, the udf returns nulls. Code as above, but modify the function to return an integer while we keep on telling the udf that the function should return a float.
+```
+def extractAge(mystring):
+    if mystring.strip() == 'age 18-25':
+        return 21
+    if mystring.strip() == 'age 26-35':
+        return 30
+    else:
+        return None
+	
+extract_age_udf = udf(lambda row: extractAge(row), FloatType())
+```
+Applying the udf will lead to the output:
+```
+df_new = df.withColumn('age_n', extract_age_udf(col('age')))
+df_new.show()
++---+---------+-----+
+| f1|      age|age_n|
++---+---------+-----+
+|1.0|age 18-25| null|
+|2.0| age 100+| null|
++---+---------+-----+
+```
+Note, that it does not matter, which are the data types. As long as they are not consistent, the udf will return nulls.
 
