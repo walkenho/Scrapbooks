@@ -140,7 +140,7 @@ df_new = (
                     )
                 ).alias('sum_diff')
     )
-    .select(func.col('sum_diff.*'))
+    .select(func.col('*', 'sum_diff.*'))
 )
 df_new.show()
 ```
