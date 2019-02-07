@@ -4,6 +4,8 @@
 - [Split into train and test](#split-into-train-and-test)
 - [Converting string variables to index variables](converting-string-variables-to-index-variables)
 
+## API documentation
+- [Random Forrest](#random-forest)
 
 # General prep
 
@@ -41,4 +43,14 @@ pre_pipeline_fit = pre_pipeline.fit(train)
 
 train_indexed = pre_pipeline_fit.transform(train)
 train_indexed.cache()
+```
+
+# API Documentation
+I keep on forgetting the API input names, so here is a summary.
+
+## Random Forest
+```
+class pyspark.ml.classification.RandomForestClassifier(...)
+```
+featuresCol="features", labelCol="label", predictionCol="prediction", probabilityCol="probability", rawPredictionCol="rawPrediction", maxDepth=5, maxBins=32, minInstancesPerNode=1, minInfoGain=0.0, maxMemoryInMB=256, cacheNodeIds=False, checkpointInterval=10, impurity="gini", numTrees=20, featureSubsetStrategy="auto", seed=None, subsamplingRate=1.0)
 ```
