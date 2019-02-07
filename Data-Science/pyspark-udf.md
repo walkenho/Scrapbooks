@@ -12,6 +12,7 @@ A general remark: When dealing with udfs, it is important to be aware of the typ
 For both of the examples we need to import the following modules:
 ```
 from pyspark.sql.functions import udf, struct, col
+import pyspark.sql.functions as func
 ```
 
 ## Level 0: One-In-One-Out
@@ -140,7 +141,7 @@ df_new = (
                     )
                 ).alias('sum_diff')
     )
-    .select(func.col('*', 'sum_diff.*'))
+    .select('*', col('sum_diff.*'))
 )
 df_new.show()
 ```
