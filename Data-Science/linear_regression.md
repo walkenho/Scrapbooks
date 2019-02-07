@@ -1,16 +1,13 @@
-# -----------------------------------------------------------------
-# (Multiple and not multiple) regressions using statsmodel:
-# -----------------------------------------------------------------
 
-# Walk through for single regression:
+# (Multiple and not multiple) regressions using statsmodel:
+
+## Walk through for single regression:
 https://github.com/justmarkham/DAT4/blob/master/notebooks/08_linear_regression.ipynb
 
-# Multiple regression:
+## Multiple regression:
 https://www.datarobot.com/blog/multiple-regression-using-statsmodels/
 
-# -----------------------------------------------------------------
 # Coding categorical into numerical variables:
-# -----------------------------------------------------------------
 http://statsmodels.sourceforge.net/devel/contrasts.html
 
 # Difference logit, probit:
