@@ -1,8 +1,11 @@
 # How to Convert Functions into UDFs in Pyspark
-This entry deals with how to code and how to use a udf. First, we take a look at how to proceed in the simplest case: 
+
+We have a Spark dataframe and want to apply a specific transformation to a column/a set of columns. In Pandas, we can use the *map()* and *apply()* functions. The Spark equivalent is the udf (user-defined function). A user defined function is generated in two steps. In step one, we create a normal python function, which is then in step two converted into a udf, which can then be applied to the data frame. 
+
+This entry shows how to code and use a udf. First, we take a look at how to proceed in the simplest case: 
 a function with one
 input and one output variable. Afterwards we level up our udf abilities and use a function with multiple in- and 
-output variables.
+output variables. Code has been tested for Spark 2.1.1.
 
 A general remark: When dealing with udfs, it is important to be aware of the type of output that your function returns. If you get the output data types wrong, your udf will return only nulls.
 
@@ -29,6 +32,8 @@ The function *extractAge()* takes a single input and returns a single output of 
 ```
 extract_age_udf = udf(lambda row: extractAge(row), FloatType())
 ```
+The return type (here FloatType) can be any of the [standard Spark datatypes](http://spark.apache.org/docs/latest/api/python/pyspark.sql.html?highlight=types#module-pyspark.sql.types)
+
 ### Step 3: Usage
 Create a test dataframe:
 ```
@@ -118,6 +123,26 @@ df_new.show()
 |2.0|4.0|[6.0,-2.0]|6.0|-2.0|
 +---+---+----------+---+----+
 
+```
+
+Update: I just found [this post](https://towardsdatascience.com/pyspark-udfs-and-star-expansion-b50f501dcb7b) 
+commenting on execution plans for the * expansion. 
+It suggests, wrapping the results in an array and then exploding the array. While the exploding has some drawbacks, it means,
+that you only need to execute the udf once, which is good, since udfs are inherently slow to execute. Adapting this idea for the example 
+above leads to a code like this:
+```
+df_new = (
+    test_data
+    .select(
+        '*', func.explode(
+                func.array(
+                    sum_diff_udf(struct([col('f1'), col('f2')]))
+                    )
+                ).alias('sum_diff')
+    )
+    .select(func.col('sum_diff.*'))
+)
+df_new.show()
 ```
 
 ## Example of What Happens if you get your Output Data Type Wrong
