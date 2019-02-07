@@ -5,34 +5,59 @@ output variables.
 A general remark: When dealing with udfs, it is important to be aware of the type of output that your function returns. If you get this 
 one wrong, your udf will return only nulls.
 
-## Level 0: 1-in-1-out:
-### Step 1: Define your function
-This is an example of a function that takes a string, compares it to several options and finally returns a float.  (it is important to realize which data type your return is):
-
+For both of the examples we need to import the following modules:
 ```
-def extract_age(mystring):
+from pyspark.sql.functions import udf, struct, col
+```
+
+## Level 0: One-In-One-Out
+### Step 1: Define your function
+I was recently recoding binned ages into numeric format. This is an abbreviated version of a function that takes a string, compares it to several options and finally returns a float.
+```
+def extractAge(mystring):
     if mystring.strip() == 'age 18-25':
         return 21.5
     if mystring.strip() == 'age 26-35':
         return 30.5
     else:
-        return 0.0
+        return None
 ```
 
 ### Step 2: Create the udf (user-defined function)
-`extract_age()` takes a single input and returns a single output of type float. The udf-syntax therefore is:
+`extractAge()` takes a single input and returns a single output of type float. The udf-syntax therefore is:
 ```
-extract_age_udf = udf(lambda row: extract_age(row), FloatType())
+extract_age_udf = udf(lambda row: extractAge(row), FloatType())
 ```
-Step 3: Usage
+### Step 3: Usage
+Create a test dataframe:
+```
+df = sc.parallelize([[1., 'age 18-25'], [2., 'age 100+']]).toDF(["f1","age"])
+df.show()
+>>>
++---+---------+
+| f1|      age|
++---+---------+
+|1.0|age 18-25|
+|2.0| age 100+|
++---+---------+
+```
+Apply function:
 ```
 df_new = df.withColumn('age_n', extract_age_udf(col('age')))
+df_new.show()
+>>>
++---+---------+-----+
+| f1|      age|age_n|
++---+---------+-----+
+|1.0|age 18-25| 21.5|
+|2.0| age 100+| null|
++---+---------+-----+
 ```
 
-## Levelling up: Multiple In- and Outputs
+## Levelling up: Many-In-Many-Out
 
 ### Step 1: Define your function
-Let’s assume we want to create a function which takes a row object, and returns the sum and the difference  of the two numbers in the row. 
+Let’s assume we want to create a function which takes as input two columns and returns the sum and the difference of the two columns.
 
 ```
 def sum_diff(f1, f2):
