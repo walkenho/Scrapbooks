@@ -2,6 +2,7 @@
 ## General prep
 - [Simple ways to deal with nulls](#simple-ways-to-deal-with-nulls)
 - [Split into train and test](#split-into-train-and-test)
+- [Converting string variables to index variables](converting-string-variables-to-index-variables)
 
 
 # General prep
