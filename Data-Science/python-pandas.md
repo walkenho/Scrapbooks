@@ -31,10 +31,8 @@ In order to rename columns of a dataframe, one possibility is to set the column 
     df.rename(index=str, columns={"A": "a", "B": "c"})
     
     >>>
-        a  c
-        
-     0  1  4
-     
+        a  c  
+     0  1  4  
      1  2  5
      ```
     
@@ -44,10 +42,8 @@ In order to rename columns of a dataframe, one possibility is to set the column 
     df = pd.DataFrame({"A": [1, 2], "B": [4, 5]})
     df.rename(str.lower, axis='columns')
     
-       a  b
-       
-    0  1  4
-    
+       a  b  
+    0  1  4  
     1  2  5
     ```
     
@@ -57,9 +53,7 @@ In order to rename columns of a dataframe, one possibility is to set the column 
     df = pd.DataFrame({"A": [1, 2], "B": [4, 5]})
     df.rename({0: 2, 1: 4}, axis='index')
     
-       A  B
-       
-    2  1  4
-    
+       A  B  
+    2  1  4  
     4  2  5
     ```
