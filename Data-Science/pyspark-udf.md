@@ -12,6 +12,7 @@ A general remark: When dealing with udfs, it is important to be aware of the typ
 For both of the examples we need to import the following modules:
 ```
 from pyspark.sql.functions import udf, struct, col
+from pyspark.sql.types import * 
 import pyspark.sql.functions as func
 ```
 
