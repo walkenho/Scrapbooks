@@ -19,14 +19,18 @@ Also: Use the *coarse-to-fine sampling scheme*
 Random does not necessarily mean uniform. If your range spans multiple orders or magnitude you need to randomly sample on a log scale. 
 Two examples are:
 1. Sample the learning rate between 0.001 and 1:  
-   ```
+   ```python
    r = -4*np.random.rand()
    alpha=10**r
    ```
 2. Sample the exponent beta for the weighted average between 0.9 and 0.999  
    -> Sample 1-beta between 0.001 and 0.1  
    Here, it is important to sample more closely around beta=1, since the number of samples taken into account (1/(1-beta)) is more sensitive
-   to beta around beta\approx 1.
+   to beta around beta\approx 1. Example implementation:
+   ```python
+   r = np.random.rand()
+   beta = 1-10**(- r - 1)
+   ```
    
  ## Tuning in pratice: Panda vs. Caviar
  Two possible methodologies: Panda vs Caviar
