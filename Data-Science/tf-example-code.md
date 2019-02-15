@@ -147,3 +147,67 @@ _ , c = sess.run([optimizer, cost], feed_dict={X: minibatch_X, Y: minibatch_Y})
 
 optimizer = tf.train.AdamOptimizer(learning_rate = learning_rate).minimize(cost)
 ```
+
+
+## Tensorflow and ConvNets
+Note also that you will only initialize the weights/filters for the conv2d functions. TensorFlow initializes the layers for the fully connected part automatically. We will talk more about that later in this assignment.
+
+In TensorFlow, there are built-in functions that carry out the convolution steps for you.
+
+tf.nn.conv2d(X,W1, strides = [1,s,s,1], padding = 'SAME'): given an input  XX  and a group of filters  W1W1 , this function convolves  W1W1 's filters on X. The third input ([1,f,f,1]) represents the strides for each dimension of the input (m, n_H_prev, n_W_prev, n_C_prev). You can read the full documentation here
+
+tf.nn.max_pool(A, ksize = [1,f,f,1], strides = [1,s,s,1], padding = 'SAME'): given an input A, this function uses a window of size (f, f) and strides of size (s, s) to carry out max pooling over each window. You can read the full documentation here
+
+tf.nn.relu(Z1): computes the elementwise ReLU of Z1 (which can be any shape). You can read the full documentation here.
+
+tf.contrib.layers.flatten(P): given an input P, this function flattens each example into a 1D vector it while maintaining the batch-size. It returns a flattened tensor with shape [batch_size, k]. You can read the full documentation here.
+
+
+tf.contrib.layers.fully_connected(F, num_outputs): given a the flattened input F, it returns the output computed using a fully connected layer. You can read the full documentation here.
+```
+tf.contrib.layers.fully_connected(
+    inputs,
+    num_outputs,
+    activation_fn=tf.nn.relu,
+    normalizer_fn=None,
+    normalizer_params=None,
+    weights_initializer=initializers.xavier_initializer(),
+    weights_regularizer=None,
+    biases_initializer=tf.zeros_initializer(),
+    biases_regularizer=None,
+    reuse=None,
+    variables_collections=None,
+    outputs_collections=None,
+    trainable=True,
+    scope=None
+)
+```
+
+In the last function above (tf.contrib.layers.fully_connected), the fully connected layer automatically initializes weights in the graph and keeps on training them as you train the model. Hence, you did not need to initialize those weights when initializing the parameters.
+
+tf.nn.softmax_cross_entropy_with_logits(logits = Z3, labels = Y): computes the softmax entropy loss. This function both computes the softmax activation function as well as the resulting loss. You can check the full documentation [here](https://www.tensorflow.org/api_docs/python/tf/nn/softmax_cross_entropy_with_logits).
+```python
+tf.nn.softmax_cross_entropy_with_logits(
+    _sentinel=None,
+    labels=None,
+    logits=None,
+    dim=-1,
+    name=None
+)
+```
+
+
+tf.reduce_mean: computes the mean of elements across dimensions of a tensor. Use this to sum the losses over all the examples to get the overall cost. You can check the full documentation [here](https://www.tensorflow.org/api_docs/python/tf/math/reduce_mean).
+Aliases: tf.math.reduce_mean
+tf.reduce_mean
+```python
+tf.math.reduce_mean(
+    input_tensor,
+    axis=None,
+    keepdims=None,
+    name=None,
+    reduction_indices=None,
+    keep_dims=None
+)
+```
+
