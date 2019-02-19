@@ -110,3 +110,4 @@ Note: Learning rate decay can help, but is not necessarily the most important th
 # Further Resources:
 * http://cs231n.github.io/neural-networks-3/#sgd
 * https://wiseodd.github.io/techblog/2016/06/22/nn-optimization/
+* Extensive review and comparison of gradient descent optimization algorithms: http://ruder.io/optimizing-gradient-descent/
