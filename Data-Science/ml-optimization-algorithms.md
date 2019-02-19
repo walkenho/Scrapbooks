@@ -24,6 +24,7 @@ speed-up from vectorization.
 
 # Adaptive Learning Rate Algorithms
 ## Gradient Descent with Momentum
+Because stochastic and mini-batch gradient descent make a parameter update after seeing just a subset of examples, the direction of the update has some variance, and so the path taken by mini-batch gradient descent will "oscillate" toward convergence. Using momentum can reduce these oscillations.
 In gradient descent with momentum, we calculate the **exponentially averaged momentum** of the parameters and take this into account 
 when updating. Gradient
 descent with momentum is almost always faster then normal gradient descent. 
