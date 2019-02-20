@@ -56,7 +56,8 @@ b = b - alpha * v_db
 Using the momenta smoothes out the oscillations in the descent, allowing us to choose a larger learner parameter alpha. 
 
 ### In Practice
-* common choice: beta = 0.9
+* The larger beta, the smoother the update. However, too large a beta can smooth it out too much
+* Common choice range between 0.8 and 0.999. In case of doubt (or lazynees), beta = 0.9 is often a reasonable default.
 * people often don't bother with bias correction (since decay time is about 10 iterations for beta = 0.9)
 * often, one sees the 1-beta factor omitted, resulting in: v_dW = beta * dW + dW  
   For this implementation, we need to adapt the alpha to alpha/(1-beta). However, this is a bit problematic, since it mixes alpha and beta and if you tune one, you need to re-tune the other, too.
