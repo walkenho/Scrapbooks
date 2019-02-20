@@ -82,8 +82,8 @@ The Adam Optimization Algorithm is a combination of RMSProp and Gradient with Mo
 2. Calculate momemta (using bias correction) and momenta squared  
    vdW = (beta1 * vdW + (1-beta1) * dW) / (1-beta1\*\*t) 
    vdb = (beta1 * vdb + (1-beta1) * db) / (1-beta1\*\*t)  
-   SdW = beta2 * SdW + (1-beta2) * dW\*\*2  
-   Sdb = beta2 * Sdb + (1-beta2) * db\*\*2  
+   SdW = (beta2 * SdW + (1-beta2) * dW\*\*2) / (1-beta1\*\*t)   
+   Sdb = (beta2 * Sdb + (1-beta2) * db\*\*2) / (1-beta1\*\*t)   
 3. Update parameters  
    W := W - alpha * vdW / (sqrt(SdW) + epsilon)
    b := b - alpha * vdb / (sqrt(Sdb) + epsilon)
