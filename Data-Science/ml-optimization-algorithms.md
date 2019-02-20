@@ -76,14 +76,14 @@ b = b - alpha * db / (sqrt(Sdb) + epsilon)
 If we want, we can also use a bias correction analogue to gradient descent.
 
 ## Adam (Adaptive Moment) Optimization 
-The Adam Optimization Algorithm is a combination of RMSProp and Gradient with Momentum. This is how it goes.
+The Adam Optimization Algorithm (proposed [here](https://arxiv.org/pdf/1412.6980.pdf)) is a combination of RMSProp and Gradient with Momentum. This is how it goes.
 1. Initialize everything to zero  
    vdW = SdW = vdb = Sdb = 0
 2. Calculate momemta (using bias correction) and momenta squared  
    vdW = (beta1 * vdW + (1-beta1) * dW) / (1-beta1\*\*t) 
    vdb = (beta1 * vdb + (1-beta1) * db) / (1-beta1\*\*t)  
-   SdW = (beta2 * SdW + (1-beta2) * dW\*\*2) / (1-beta1\*\*t)   
-   Sdb = (beta2 * Sdb + (1-beta2) * db\*\*2) / (1-beta1\*\*t)   
+   SdW = (beta2 * SdW + (1-beta2) * dW\*\*2) / (1-beta2\*\*t)   
+   Sdb = (beta2 * Sdb + (1-beta2) * db\*\*2) / (1-beta2\*\*t)   
 3. Update parameters  
    W := W - alpha * vdW / (sqrt(SdW) + epsilon)
    b := b - alpha * vdb / (sqrt(Sdb) + epsilon)
@@ -92,6 +92,10 @@ The hyperparameters suggested in the [Adam paper](https://arxiv.org/abs/1412.698
 * b1 = 0.9
 * b2 = 0.999
 * epsilon = 10*-8 (not that important)
+
+Some advantages of Adam include:
+* Relatively low memory requirements (though higher than gradient descent and gradient descent with momentum)
+* Usually works well even with little tuning of hyperparameters (except alpha)
 
 ## Adagrad
 
