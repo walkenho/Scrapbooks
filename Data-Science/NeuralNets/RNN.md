@@ -34,3 +34,7 @@ Being specialized in sequential, data, RNNs come with a broad range of usecases 
   
 ## Working Principle
 ... to be continued
+
+
+## Resources
+* [The fall of RNN/LSTM](https://towardsdatascience.com/the-fall-of-rnn-lstm-2d1594c74ce0)
