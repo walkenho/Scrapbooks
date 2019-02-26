@@ -22,7 +22,7 @@ RNNs can be categorized broadly according to their input/output as:
 * one-to-one  
   * basically just a standard NN
   
-Being specialized in sequential, data, RNNs come with a broad range of usecases as varied as:
+Being specialized in sequential data, RNNs come with a broad range of usecases as varied as:
 * Speech recognition
 * Music generation
 * Sentiment classification
@@ -33,7 +33,13 @@ Being specialized in sequential, data, RNNs come with a broad range of usecases 
   
   
 ## Working Principle
-... to be continued
+* the initial activation is most often initialized to zero; it can also be initialized randomly though 
+* at each time-step, the prediction then takes into account both the input as well as the activation of the previous time-step
+
+Information about inputs filters from left to right, from earlier in time to later in time. This has the drawback, that the network only uses information from previous time-steps not future timesteps. Whilst this makes sense for some applications, for others it might be useful to take into account inputs at later states. This is solved in bi-directional RNNs (see below). 
+
+A simplified structure looks like:
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;a^{<t>}=g(\omega_a\[a^{<t-1>},x^{<t>}]+b_a)"/>
 
 
 ## Resources
