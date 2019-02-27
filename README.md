@@ -7,7 +7,7 @@ It currently contains the following topics:
 
 ## Data Science:
 * [Frameworks](https://github.com/walkenho/Scrapbooks/tree/master/Data-Science/NeuralNets/Frameworks)
-  * Python
+  * Python (not technically a framework, but ...)
   * PySpark
   * Tensorflow
   * Keras
