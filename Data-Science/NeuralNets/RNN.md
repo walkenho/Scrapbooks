@@ -39,8 +39,27 @@ Being specialized in sequential data, RNNs come with a broad range of usecases a
 Information about inputs filters from left to right, from earlier in time to later in time. This has the drawback, that the network only uses information from previous time-steps not future timesteps. Whilst this makes sense for some applications, for others it might be useful to take into account inputs at later states. This is solved in bi-directional RNNs (see below). 
 
 A simplified structure looks like:
+
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;a^{<t>}=g(\omega_a\[a^{<t-1>},x^{<t>}]+b_a)"/>
 
+with the output
+
+<img src="https://latex.codecogs.com/svg.latex?\Large&space;\hat{y}^{<t>}=g(\omega_y\a^{<t>}+b_y)"/>
+
+Here, <img src="https://latex.codecogs.com/svg.latex?\Large&space;a^{<t>}=[a^{<t-1>},x^{<t>}]"/> denotes a^{<t-1>} and x^{<t>} stacked on top of each other.
+ 
+ The loss function is created as sum over the loss function at each time step t, where each loss function is the usual cross-entropy
+ loss L = - y * log(\hat{y}) - (1-y) * log(1-hat{y})
+ 
+ ## Sequence Generation 
+ ...
+ 
+## LSTMs and GRUs and LSTMs - Tackling the Vanishing Gradient Problem
+Exploding gradients can be a problem for RNNs, but can be solved through so-called *gradient clipping*, which is done by rescaling the gradient vector in case if it surpassed a set threshold. The bigger problem are vanishing gradients.
+Language tends to have long-time dependencies since the end of a sentence can strongly depend on the beginning. Vanilla RNNs have a problem of dealing with these long-term dependencies because of the vanishing gradient problem. Two possible solutions are LSTMs (long short term memory) and their simplyfied version GRUs (gated recurrent units). 
+
+### LSTM
+LSTM were introduced in the paper [Long short term memory](https://www.mitpressjournals.org/doi/10.1162/neco.1997.9.8.1735) by Hochreiter & Schmidthuber in 1997.
 
 ## Resources
 * [The fall of RNN/LSTM](https://towardsdatascience.com/the-fall-of-rnn-lstm-2d1594c74ce0)
