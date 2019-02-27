@@ -1,15 +1,19 @@
 # Scrapbooks
-A repository with bits and bobs regarding (mainly) DS, Computing and Physics. 
+A repository containing notes about Data Science, Computing, IT and Physics. 
 
+It currently contains the following topics:
 ## Computing:  
 ...
 
 ## Data Science:
+* Frameworks
+  * Python
+  * PySpark
+  * Tensorflow
+  * Keras
 * ML
-* Python
-* Pyspark
+* [NeuralNetworks](https://github.com/walkenho/Scrapbooks/tree/master/Data-Science/NeuralNets)
 * Stats
-* Tensorflow
 * ...
 
 ## Physics:  
