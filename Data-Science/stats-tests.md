@@ -11,8 +11,8 @@ for normality. However, when testing for normality it is less powerful than the 
 or the [Anderson–Darling test](https://en.wikipedia.org/wiki/Anderson%E2%80%93Darling_test)<sup id="a1">[[1]](#f1)</sup>.
 The K-S-test tests against the null-hypotheses that the two samples come from the same distribution. 
 If the K-S statistic is small or the p-value is high, then we cannot reject the hypothesis that the distributions of the two samples are the same, ie:
-* small p-value: likely the same
-* large p-value: likely not the same
+* small p-value: likely not the same
+* large p-value: likely the same
 
 The python syntax for performing 2-sample Kolmogorov-Smirnov test is
 ```python
