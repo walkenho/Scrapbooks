@@ -39,3 +39,6 @@ Each of reshapor, LSTM_cell and densor are now layer objects.
 In order to propagate a Keras tensor object X through one of these layers, 
 use layer_object(X) (or layer_object([X,Y]) if it requires multiple inputs.). 
 For example, reshapor(X) will propagate X through the Reshape((1,78)) layer defined above.
+
+## Converting output to Categorical Variables
+keras.utils.to_categorical(y, num_classes=None, dtype='float32') https://keras.io/utils/#to_categorical
