@@ -1,4 +1,5 @@
 
+# Example Treated in the Course
 In the course, we have seen three examples:
 * generating dinosaur names
 * generating shakespear verses
@@ -21,4 +22,4 @@ The major differences between the dinosaurs and Shakespear are:
   * [Robert Keller and David Morrison, 2007, A Grammatical Approach to Automatic Improvisation](http://smc07.uoa.gr/SMC07%20Proceedings/SMC07%20Paper%2055.pdf) 
   * [François Pachet, 1999, Surprising Harmonies]( http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.5.7473&rep=rep1&type=pdf)
 * Implementation: 
-  * Ji-Sung Kim, 2016, [deepjazz](https://github.com/jisungk/deepjazz
+  * Ji-Sung Kim, 2016, [deepjazz](https://github.com/jisungk/deepjazz)
