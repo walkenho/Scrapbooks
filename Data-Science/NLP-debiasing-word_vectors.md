@@ -15,4 +15,6 @@ calculating
 
 
 References
-*  [Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings](https://arxiv.org/abs/1607.06520)
+* [Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings](https://arxiv.org/abs/1607.06520)
+* https://www.theguardian.com/technology/2015/jul/08/women-less-likely-ads-high-paid-jobs-google-study
+* https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing
