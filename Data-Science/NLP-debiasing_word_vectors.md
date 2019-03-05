@@ -1,7 +1,12 @@
 ## Introduction
 ....
 
-## Calculating the Bias
+Three Steps:
+1. Identify the direction of bias
+2. Neutralize (project neutral words onto neutral plane)
+3. Equalize pairs (shift pair vectors, so they are equally far away from neutral words)
+
+## Identifying the Direction of Bias
 (Note that you can calculate this bias vector
 in different ways. The simplest one is to calculate the distance vector between "woman" and "man". A more general approach 
 could be to average over the distance vectors of word-pairs like "woman"-"man", "grandmother"-"grandfather", etc.
