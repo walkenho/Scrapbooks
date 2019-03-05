@@ -21,3 +21,6 @@ References
 * [Men Also Like Shopping: Reducing Gender Bias Amplification using Corpus-level Constraints](https://arxiv.org/abs/1707.09457)
 * [Quantifying and Reducing Stereotypes in Word Embeddings](https://arxiv.org/abs/1606.06121)
 * https://www.nytimes.com/2016/06/26/opinion/sunday/artificial-intelligences-white-guy-problem.html
+
+
+GloVe Word-Embeddings: https://nlp.stanford.edu/projects/glove/
