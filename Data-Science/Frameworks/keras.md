@@ -220,3 +220,7 @@ def convolutional_block(X, f, filters, stage, block, s = 2):
     
     return X
 ```
+
+
+Some Resources:
+ * https://adventuresinmachinelearning.com/keras-lstm-tutorial/
