@@ -29,6 +29,19 @@ Some layers:
   model.add(Lambda(lambda x: x ** 2))
   ```
   
+ * Embedding layer  
+    Summary: Turns positive integers (indexes) into dense vectors of fixed size. eg. [[4], [20]] -> [[0.25, 0.1], [0.6, -0.2]].  
+    This layer can only be used as the first layer in a model.  
+    https://keras.io/layers/embeddings/
+    ```python
+    keras.layers.Embedding(input_dim, output_dim, embeddings_initializer='uniform', embeddings_regularizer=None, activity_regularizer=None, embeddings_constraint=None, mask_zero=False, input_length=None)
+    ```  
+    Arguments:  
+    * input_dim: int > 0. Size of the vocabulary, i.e. maximum integer index + 1.  
+    * output_dim: int >= 0. Dimension of the dense embedding.  
+    * embeddings_initializer: Initializer for the embeddings matrix (see initializers).
+   
+  
 ## Defining layer objects
 ```python
 reshapor = Reshape((1, 78))                       
