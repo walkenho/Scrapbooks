@@ -4,6 +4,7 @@
 The most basic model for machine translation is an RNN encoder followed by an RNN decoder architecture. The two founding papers on this topic are:
 * [Sutskever et al, 2014 - Sequence to Sequence Learning with Neural Networks](https://papers.nips.cc/paper/5346-sequence-to-sequence-learning-with-neural-networks)
 * [Learning Phrase Representations using RNN Encoder–Decoder for Statistical Machine Translation](https://www.aclweb.org/anthology/D14-1179)
+
 Along a similar line, we can use a CNN encoder (for example AlexNet) to encode an image and then use an RNN decoder to generate an image caption. (see ... for the introducing paper). This works reasonably well as long as the captions are not too long. 
 
 ### Beam Search
