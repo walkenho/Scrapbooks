@@ -25,18 +25,19 @@ speed-up from vectorization.
 # Adaptive Learning Rate Algorithms
 ## Gradient Descent with Momentum
 Because stochastic and mini-batch gradient descent make a parameter update after seeing just a subset of examples, the direction of the update has some variance, and so the path taken by mini-batch gradient descent will "oscillate" toward convergence. Using momentum can reduce these oscillations.
-In gradient descent with momentum, we calculate the **exponentially averaged momentum** of the parameters and take this into account 
+In gradient descent with momentum, we calculate the **exponentially weighted averadge**/**exponentially weighted moving average**/**exponentially weighted momentum** of the parameters and take this into account 
 when updating. Gradient
 descent with momentum is almost always faster then normal gradient descent. 
 
-#### Interlude: Bias Correction in Exponentially Weighted Averages / Exponentially Weighted Moving Averages
-#### Exponentially Weigthed Average
-If we calculate v<sub>t</sub> as
+We calculate the exponentially weighted average of v<sub>t</sub> as
+
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;v_t={\beta}v_{t-1}+(1-{\beta}){\Theta}_t"/>
-then the influence of v<sub>t</sub> decays in about 
+
+An intuitive interpretation of this formula is that the influence of v<sub>t</sub> decays in about 
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;\frac{1}{1-\beta}"/> 
 days (ie shrinks to approx 1/e of its value). 
-#### Bias Correction
+
+### Bias Correction
 If we start with v0 = 0, then the first few v's are very small. (Example: v1 = beta * v0 + (1-beta) * theta1).
 To counteract this, we can introduce a **bias correction** by dividing through (1-beta^t):  
 v_t = v_t/(1-beta^t)  
@@ -53,11 +54,12 @@ v_db = (beta * v_db + (1-beta) * db) / (1-beta\*\*t)
 
 W = W - alpha * v_dW  
 b = b - alpha * v_db  
-Using the momenta smoothes out the oscillations in the descent, allowing us to choose a larger learner parameter alpha. 
 
-### In Practice
+The advantage of using the momentum gradient descent is that the momenta smooth out the oscillations in the descent. This allows us to choose a larger learner parameter alpha. 
+
+### Practical Considerations
 * The larger beta, the smoother the update. However, too large a beta can smooth it out too much
-* Common choice range between 0.8 and 0.999. In case of doubt (or lazynees), beta = 0.9 is often a reasonable default.
+* Common choice range between 0.8 and 0.999. In case of doubt (or lazyness), beta = 0.9 is often a reasonable default.
 * people often don't bother with bias correction (since decay time is about 10 iterations for beta = 0.9)
 * often, one sees the 1-beta factor omitted, resulting in: v_dW = beta * dW + dW  
   For this implementation, we need to adapt the alpha to alpha/(1-beta). However, this is a bit problematic, since it mixes alpha and beta and if you tune one, you need to re-tune the other, too.
@@ -66,7 +68,7 @@ Using the momenta smoothes out the oscillations in the descent, allowing us to c
 A variant of Gradient Descent with Momentum is to use the Nesterov Momentum, where the momentum is calculated at the approximate next point (instead of the current point).
 
 ## RMS Prop
-RMS stands for *root mean square*. Here, we exponentially weight the squares of momentum. In formulas this looks like this:  
+RMS stands for **root mean square**. In RMS Prop, instead of exponentially weighting the momenta, we weight the squares of the momenta. In formulas this looks like this:  
 SdW = beta * SdW + (1-beta) * dW<sup>2</sup>  
 Sdb = beta * Sdb + (1-beta) * db<sup>2</sup>  
 
