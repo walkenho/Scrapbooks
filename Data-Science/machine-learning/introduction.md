@@ -37,8 +37,8 @@ Some important unsupervised learning algorithms are:
   * Locally-Linear Embedding (LLE)
   * t-SNE (t-distributed Stochastic Neighbor Embedding)
 * Assiociation rule learning
-  * Apriori
-  * Eclat
+  * [Apriori](https://en.wikipedia.org/wiki/Apriori_algorithm)
+  * Eclat (Equivalence Class Transformation)
   
 #### Semisupervised Learning
 Most semi-supervised algorithms are combinations of supervised and unsupervised algorithms. For example, deep belief networks (DBNs) stack
