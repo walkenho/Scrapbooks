@@ -47,3 +47,9 @@ the whole system using supervised techniques.
 
 #### Reinforcement Learning
 In reinforcement learning you train an agent to interact with its environement in order to maximize its reward. 
+
+### Online vs Batch Learning
+In batch learning the system learns using all data at-once, it cannot learn incrementally. The system is trained, then it is deployed and applies what is has learned. This is called **offline-learning**. This solution poses problems if you need to often retrain or if your dataset if large. For these systems, a better approach is **online learning**, where you train your system incrementally, either one example at a time or in mini-batches. This is great for continous data flows for example. Online learning is also useful where the datasets are so large that they do not fit onto a single machine. This is called **out-of-core learning**. Since online learning also learns from bad data, your performance will decrease if you feed in faulty data. The rate of decline is governed by the learning rate. In order to guard against this, it is necessary to put in place data quality monitoring and closely monitor the model performance. 
+
+### Instance-based vs Model-based Learning
+In instance-based learning, the model learns all training examples by heart and then compares a new example against the training data using a chosen similarity measure. Opposed to this is the model-based learning, where you learn a model, then apply this model to the new data.  
