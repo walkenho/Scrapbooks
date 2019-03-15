@@ -53,3 +53,6 @@ In batch learning the system learns using all data at-once, it cannot learn incr
 
 ### Instance-based vs Model-based Learning
 In instance-based learning, the model learns all training examples by heart and then compares a new example against the training data using a chosen similarity measure. Opposed to this is the model-based learning, where you learn a model, then apply this model to the new data.  
+
+## The Unreasonable Effectiveness of Data
+In their paper [**Learning Curves for Confusion Set Disambiguation**](http://homl.info/6) Microsoft researchers M. Banko and E. Brill showed that very different ML algorithms (including very simple ones) performed similarly on a data set of natural language disambiguation once they were given enough data. The idea that data matters more than than fancy algorithms for complex tasks was further supported in the paper [**The Unreasonable Effectiveness of Data**](http://homl.info/7) by P. Norvig et al. However, it needs to stay clear, that this holds true for large data sets, not necessarily for small to medium size data sets. 
