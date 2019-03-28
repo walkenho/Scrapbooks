@@ -31,5 +31,17 @@ pred = clf.predict(X_test_tfidf)
 from sklearn import metrics
 print(metrics.classification_report(test_y, pred))
 
-metrics.confusion_matrix(test_y, pred)
+conf_mat = metrics.confusion_matrix(test_y, pred)
+print(conf_mat)
+
+labels = ['Class 0', 'Class 1']
+fig = plt.figure()
+ax = fig.add_subplot(111)
+cax = ax.matshow(conf_mat, cmap=plt.cm.Blues)
+fig.colorbar(cax)
+ax.set_xticklabels([''] + labels)
+ax.set_yticklabels([''] + labels)
+plt.xlabel('Predicted')
+plt.ylabel('Expected')
+plt.show()
 ```
