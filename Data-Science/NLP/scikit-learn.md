@@ -23,6 +23,10 @@ X_train_tfidf.shape
 
 X_test_tfidf = tfidf_transformer.transform(X_test_counts)
 
+# alternative:
+# TfidfVectorizer() is equivalent to CountVectorizer() followed by TfidfTransformer()
+
+
 from sklearn.naive_bayes import MultinomialNB
 
 clf = MultinomialNB().fit(X_train_tfidf, train_y)
