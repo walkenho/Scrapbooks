@@ -161,7 +161,8 @@ The reason for this is -as stated above- that the ROC curve makes use of the num
 
 (from [The Precision-Recall Plot Is More Informative than the ROC Plot When Evaluating Binary Classifiers on Imbalanced Datasets](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4349800/), 2015)
 
-The reason is the use of the true negatives in the false positve rate:
+The reason is the use of the true negatives in the false positve rate and the fact that the ROC curve does not care about probabilities, in only cares about ordering. This also means that the AUROC is not equivalent to the probability of the model being true.
+
 >If the proportion of positive to negative instances changes in a test set, the ROC curves will not change. Metrics such as accuracy, >precision, lift and F scores use values from both columns of the confusion matrix. As a class distribution changes these measures will >change as well, even if the fundamental classifier performance does not. ROC graphs are based upon TP rate and FP rate, in which each >dimension is a strict columnar ratio, so do not depend on class distributions.
 
 (from [Tom Fawcett, ROC Graphs: Notes and Practical Considerations for Researchers](http://www.blogspot.udec.ugto.saedsayad.com/docs/ROC101.pdf), 2004)
