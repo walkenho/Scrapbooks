@@ -12,8 +12,10 @@ f1 = 2 * recall*precision / (recall + precision)
 # Matthew's Correlation Coefficient
 MCC = (TP*TN - FP*FN)/[(TP+FP)(TP+FN)(TN+FP)(TN+FN)]
 
-# Curves
-There are two curves usually used to analyze model performance. The **ROC (receiver-operating characteristic) curve** and the **precision-recall curve**. In addition to providing the curve as visualization, they can also be summarized via the **AUC (area under curve)** metric. This is also called **AUROC** for the ROC curve. Finally the AUROC leads to the **Gini coefficient**, which is G = 2\*AUROC-1.  Note that both curves are usually only used for binary classification problems, even though generalizations to multi-class classifications have been proposed (to do: dig out sources).
+# ROC and PR Curves
+There are two curves usually used to analyze model performance. The **ROC (receiver-operating characteristic) curve** and the **precision-recall curve**. In addition to providing the curve as visualization, they can also be summarized via the **AUC (area under curve)** metric. This is also called **AUROC** for the ROC curve. Finally the AUROC leads to the **Gini coefficient**, which is G = 2\*(AUROC-0.5), the difference of the AUC of the model and the AUC of a non-distinguishing model times two. 
+
+Both ROC and PR curve are most commonly used for binary classification problems, even though generalizations to multi-class classifications have been proposed (to do: dig out sources).
 
 ## ROC Curve
 The ROC curve plots the **true positive rate (TPR)** (also called **recall** or **sensitivity** on the y-axis as a function of the **false positive rate (FPR)** (being 1-specifity) on the x-axis. A nice explanation of the ROC curve with some good graphs can be found [here](https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5). For an explanation we can distinguish the three cases of perfect class separation, overlapping class distributions, identical class distributions.
@@ -31,17 +33,21 @@ Let's see what happens in both cases.
   For a threshold of above 0.5, the case is symmetric to the case described for a threshold of below 0.5 but with the roles of FPR and TPR swapped. All negative samples are classified as negative and no false positives exist. Therefore FPR = 1. What about TPR? For a threshold of 0.5 all positive samples are classified as positive, no false negatives, therefore TPR=1. For a threshold of 1, all positive samples are classified as negative, all are false negatives, no true positives, therefore TPR=0. In summary, this range is characterized by FPR=1 and TPR in [0,1].
   
  Putting these two cases together we end up with a ROC curve shaped like a square, where the curve touches upper left corner 
+ ```
  _______________________
  |
  |
  |
  |
- The area under the curve is 1, the Gini coefficient 2\*1-1=1.
+ ```
+ 
+ The area under the curve is 1, the Gini coefficient 2\*(1-0.5)=1.
 
- 
  ### Identical Class Distributions / No Distinguishing Power
- In the case of identical class distributions, let's look at the extreme thresholds first. For a threshold of 0, false positives are 0
- 
+ In the case of identical class distributions, let's look at the extreme thresholds first. The thresholds 0 and 1 as for the previous case result in FPR=TPR=1 and FPR=TPR=0. But what happens in between? If we start at a threshold of 1 (TP=FP=0) and then decrease the threshold, for two identical distributions, for each TP we gain, we also gain a FP and for each FN we lose, we also lose a TP. Therefore TPR and FPR evolve in exactly the same way and plotting TPR against FPR results in a straight diagonal leading to an AUC of 0.5 and a Gini coefficient of 0. 
   
  ### Overlapping Class Distributions
- If the class distributions overlap, the curve loses its box shape and becomes more rounded. The AUC is between 1 and 0.5, the Gini coefficient between 1 and 0.
+ If the class distributions overlap, we find a mixture of the two cases describes above. This results in the the curve losing its box shape (from the perfectly separated classes) and the edges becoming round. The more overlap, the more the curves resemble a line. The AUC is between 1 and 0.5, the Gini coefficient between 1 and 0. (That is not exactly accurate, since the AUC can be below 0.5 indicating an inverted model).
+ 
+ ## Precision-Recall Curve
+ 
