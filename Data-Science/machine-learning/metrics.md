@@ -58,37 +58,7 @@ Let's see what happens in both cases.
  If the class distributions overlap, we find a mixture of the two cases describes above. This results in the the curve losing its box shape (from the perfectly separated classes) and the edges becoming round. The more overlap, the more the curves resemble a line. The AUC is between 1 and 0.5, the Gini coefficient between 1 and 0. (That is not exactly accurate, since the AUC can be below 0.5 indicating an inverted model).
  
  ### Python Code
- A full example of how to calculate and plot a ROC curve (taken from [here](https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/)
- ```python
- from sklearn.datasets import make_classification
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_curve
-from sklearn.metrics import roc_auc_score
-from matplotlib import pyplot
-# generate 2 class dataset
-X, y = make_classification(n_samples=1000, n_classes=2, weights=[1,1], random_state=1)
-# split into train/test sets
-trainX, testX, trainy, testy = train_test_split(X, y, test_size=0.5, random_state=2)
-# fit a model
-model = KNeighborsClassifier(n_neighbors=3)
-model.fit(trainX, trainy)
-# predict probabilities
-probs = model.predict_proba(testX)
-# keep probabilities for the positive outcome only
-probs = probs[:, 1]
-# calculate AUC
-auc = roc_auc_score(testy, probs)
-print('AUC: %.3f' % auc)
-# calculate roc curve
-fpr, tpr, thresholds = roc_curve(testy, probs)
-# plot no skill
-pyplot.plot([0, 1], [0, 1], linestyle='--')
-# plot the roc curve for the model
-pyplot.plot(fpr, tpr, marker='.')
-# show the plot
-pyplot.show()
-```
+You can find a full example how to visualize a precision-recall curve in my [Scrapbooks/Frameworks/sklearn-metrics.md chapter](https://github.com/walkenho/Scrapbooks/blob/master/Data-Science/Frameworks/sklearn-metrics.md)
  
  ## Precision-Recall Curve
  The precision-recall curve also plots the precision (true predictive power) on the y-axis against the recall (sensitiviy; true positive rate) on the x-axis. 
@@ -107,45 +77,7 @@ Some attempts of summarizing the precision-recall curve are:
 Notable, the f1-score is for a single threshold, average precision and AUC are a summary of the whole precision-recall curve. 
 
 ### Python Code
-```python
-# precision-recall curve and f1
-from sklearn.datasets import make_classification
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import precision_recall_curve
-from sklearn.metrics import f1_score
-from sklearn.metrics import auc
-from sklearn.metrics import average_precision_score
-from matplotlib import pyplot
-# generate 2 class dataset
-X, y = make_classification(n_samples=1000, n_classes=2, weights=[1,1], random_state=1)
-# split into train/test sets
-trainX, testX, trainy, testy = train_test_split(X, y, test_size=0.5, random_state=2)
-# fit a model
-model = KNeighborsClassifier(n_neighbors=3)
-model.fit(trainX, trainy)
-# predict probabilities
-probs = model.predict_proba(testX)
-# keep probabilities for the positive outcome only
-probs = probs[:, 1]
-# predict class values
-yhat = model.predict(testX)
-# calculate precision-recall curve
-precision, recall, thresholds = precision_recall_curve(testy, probs)
-# calculate F1 score
-f1 = f1_score(testy, yhat)
-# calculate precision-recall AUC
-auc = auc(recall, precision)
-# calculate average precision score
-ap = average_precision_score(testy, probs)
-print('f1=%.3f auc=%.3f ap=%.3f' % (f1, auc, ap))
-# plot no skill
-pyplot.plot([0, 1], [0.5, 0.5], linestyle='--')
-# plot the precision-recall curve for the model
-pyplot.plot(recall, precision, marker='.')
-# show the plot
-pyplot.show()
-```
+You can find a full example how to visualize a precision-recall curve in my [Scrapbooks/Frameworks/sklearn-metrics.md chapter](https://github.com/walkenho/Scrapbooks/blob/master/Data-Science/Frameworks/sklearn-metrics.md)
 
 ## ROC vs Precision-Recall Curve for Imbalanced Datasets
 Generally the decision on ROC vs precision-recall curves should be based on the degree of imbalance in the dataset. Generally, the use of ROC curves and precision-recall curves are as follows:
