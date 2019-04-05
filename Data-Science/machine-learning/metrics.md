@@ -166,6 +166,8 @@ The reason is the use of the true negatives in the false positve rate:
 
 (from [Tom Fawcett, ROC Graphs: Notes and Practical Considerations for Researchers](http://www.blogspot.udec.ugto.saedsayad.com/docs/ROC101.pdf), 2004)
 
+A good illustrative example of the shortcomings of the ROC in comparison to the precision-recall curve for imbalance data can be found [here](https://www.kaggle.com/lct14558/imbalanced-data-why-you-should-not-use-roc-curve).
+
 Some more papers on the topic:
 * [A critical investigation of recall and precision as measures of retrieval system performance](https://dl.acm.org/citation.cfm?id=65945), 1989
 * [The Relationship Between Precision-Recall and ROC Curves](https://dl.acm.org/citation.cfm?id=1143874), 2006
