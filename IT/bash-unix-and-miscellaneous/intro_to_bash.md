@@ -109,3 +109,6 @@ https://www.unr.edu/it/research-resources/research-computing/hpc/the-grid/using-
 
 And a cheat-sheet for scripting (which you probably won’t need, but I just found because I was looking for sth for you and I thought it was quite neat ;)
 https://devhints.io/bash
+
+
+ ps auxf | grep launch_
