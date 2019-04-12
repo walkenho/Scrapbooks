@@ -1,4 +1,38 @@
-## Basic File Manipulations
+## Basics: Moving Around and Basic File Manipulations
+If you log on, the first thing you probably want to know is where you are (you will probably be in your homedirectory). You can find this out by printing the name of your current working directory onto the screen
+```
+# print working directory
+pwd
+```
+
+You can find out what is in this directory by listing its contents. Many bash commands allow for modifiers to be added, so-called flags. They most commonly consist of a single letter, which is appened to the command by a "-". You can combine multiple flags by just writing them one behind the other. For example the command `ls` lists the contents of a directory. It has a multitude of possible flags. Here are some examples
+
+Print content directories:
+```
+# list current directory
+ls 
+
+# include hidden files
+ls -a
+
+# include more details 
+ls -l
+```
+
+You can find info on a bash command and its modifiers by using the `man` command.
+
+Getting help for a command
+```
+man command
+
+# for example:
+man ls
+```
+
+In order to move around, you can use the 
+
+
+
 Change directory to directory newdirectory inside the current directory: 
 ```
 cd newdirectory
@@ -40,15 +74,7 @@ create (make) directory:
 mkdir name_of_new_directory
 ```
 
-list content of current directory:
-```
-ls 
-```
 
-list content of directory inside current directory:
-```
-ls name_of_directory
-```
 
 find a piece of text inside textfiles:
 ```
