@@ -46,6 +46,13 @@ cd ..
 cd ../mydirectory
 ```
 
+### Advanced Moving Around
+```
+pushd dir
+popd 
+dirs -v 
+```
+
 ### Basic Interaction with Files and Folders
 You can create a simple text file by 
 ```
