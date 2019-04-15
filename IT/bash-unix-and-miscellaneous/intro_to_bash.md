@@ -1,4 +1,5 @@
 ## Basics: Moving Around and Basic File Manipulations
+### Orientation
 If you log on, the first thing you probably want to know is where you are (you will probably be in your homedirectory). You can find this out by printing the name of your current working directory onto the screen
 ```
 # print working directory
@@ -15,8 +16,8 @@ ls
 # include hidden files
 ls -a
 
-# include more details 
-ls -l
+# include hidden files and print more details 
+ls -la
 ```
 
 You can find info on a bash command and its modifiers by using the `man` command.
@@ -29,49 +30,54 @@ man command
 man ls
 ```
 
-In order to move around, you can use the 
-
-
+In order to move around, you you the `cd` (change directory) command:
 
 Change directory to directory newdirectory inside the current directory: 
 ```
-cd newdirectory
-```
+# change to directory called mydirectory inside current directory
+cd mydirectory
 
-change directory to directory above: 
-```
+# change to directory above
 cd ..
+
+# chaining these together to move into directory which is also inside the directory above (basically into a "parallel" directory)
+cd ../mydirectory
 ```
 
-chaining together:
+#### Interacting with files/folders
+You can create a simple text file by 
 ```
-cd ../my_new_directory
-```
-
-move file:
-```
-mv file_old file_new
+# create a text file called mynewtextfile.txt
+touch mynewtextfile.txt
 ```
 
-copy file:
+This file can then be copied, moved or deleted:
 ```
-cp file_old file_new
+# copy file
+cp oldfilename newfilename
+
+# move/rename file
+mv oldfilename newfilename
+
+# delete file
+rm oldfilename
 ```
 
-delete file:
+In order to create (make) a new directory:
 ```
-rm file_to_remove
+mkdir mynewdirectory
 ```
 
-To copy or delete folder, you need to add the -r flag:
+Directories are copied, moved and deleted like files. However, copying and deleting requires the -r (recursive) flag:
 ```
+# copy directory
 cp -r folder_old folder_new
-rm –r folder_to_remove
-```
 
-create (make) directory:
-```
-mkdir name_of_new_directory
+# delete directory
+rm –r folder_to_remove
+
+# rename directory (without -r flag)
+mv old_folder new_folder
 ```
 
 
