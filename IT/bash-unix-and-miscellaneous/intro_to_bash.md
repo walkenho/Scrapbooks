@@ -126,7 +126,7 @@ grep -in mybadfilename *.sas
 In the last example, we have seen an example of a place holder. \*.sas denotes all files with a .sas ending. 
 
 ### Redirecting Output
-Some commands print an output to the screen. We might want to re-direct this output to a file. This can be done using `>` and `>>`. `>` creates a new file, `>>` appends to an existing file (or creates a new file if the file does not exist). For example we might want to re-direct the output of the `grep -in mybadfilename *.sas` command into a file: 
+Some commands print an output to the screen. We might want to re-direct this output to a file. This can be done using `>` and `>>`. `>` creates a new file, `>>` appends to an existing file (or creates a new file if the file does not exist). For example we might want to re-direct the output of the `grep -in mybadfilename *.sas` command into a file:
 ```
 # creates new file; if file exists, overwrites it
 mycommand > mytextfile
@@ -138,14 +138,97 @@ mycommand >> mytextfile
 # exammple:
 grep -in mybadfilename *.sas >> myoutputfile
 ```
+If in addition to re-directing the output to the file, we also want to have the output on the screen, we can use `| tee`. Note, that the complete command needs to appear before the `|`. 
+```
+# print output to screen plus re-direct to file
+mycommand | tee myoutputfile
 
-[Here]([https://devdactic.com/10-basic-bash-commands/) is a link with some basic commands and how they are used:
+# example:
+grep -in mybadfilename *.sas | tee myoutputfile
+```
 
-And this is a small summary of some more commands (more useful, but not as extensively described):
-https://www.unr.edu/it/research-resources/research-computing/hpc/the-grid/using-the-grid/bash-commands
+`|` let's you re-direct output into functions which expect their input to come after the function call. An example: Calling `grep` on a filename requires the syntax `grep sth filename`. But you might have a programm returning output and want to grep for sth in this output. You can do this by using the `|`. For example, `ps aux` shows all processes running on your system. You might want to search for a process containing a certain string, e.g. launch_. 
+```
+# grep for the string launch_ in the output of ps aux
+ps aux | grep launch_
+```
 
-And a cheat-sheet for scripting (which you probably won’t need, but I just found because I was looking for sth for you and I thought it was quite neat ;)
-https://devhints.io/bash
+## Variables and Scripting
+Bash uses variables. You define variables by using the = sign. There must not be any whitespace between the variable name, the = sign and the value. You can access the content of a variable using `$` followed by the variablename. You can use `echo` to print to the screen. 
 
+### Variables
+```
+# define variable
+mynewvariable="this_is_a_string"
 
- ps auxf | grep launch_
+# print variable to screen
+# (will print this_is_a_string to the screen)
+echo $mynewvariable
+```
+
+Variables are often used to define paths and filenames. When variables are re-solved within text, it is required to put {} around the variable names.
+```
+In order to print the content of the variable mynewvariable, followed by _1, use {} around the variable name:
+# incorrect
+echo $mynewvariable_1
+
+# correct
+echo ${mynewvariable}_1
+```
+
+### Loops
+Bash uses the for ... do ... done syntax for looping:
+```
+# loop over the filenames myfilename1 and myfilename2 and rename them to myfilename1.bac and myfilename2.bac
+for myfilename in myfilename1, myfilename2;
+do
+  mv $filename ${filename}.bac;
+done
+```
+If you want to loop over an integer, you can use the sequence generator: 
+```
+for i in $(seq 1 3);
+do
+ echo $i
+done
+```
+Note that $() opens a new sub-shell, where it resolves the content of () and then passes the output back to the outer shell (here: seq 1 3 produces the sequence 1 2 3 and passes it back to the outer shell, where it is then looped over.
+
+### Writing a (Very) Basic Script
+You can create a text file containing bash syntax, make it executable and then run it. For example you can create a text file containing the following code snippet:
+```
+#!/usr/bin/bash
+
+# print myfilename.txt
+echo myfilename.txt
+
+exit 0
+```
+and save it as myfirstbashscript.sh . (This file does not do anything interesting, it just prints myfilename.txt to the screen). You then need to make it executable by typing 
+``` 
+# add execution rights for file myfirstbashscript.sh for the owner of the file
+chmod u+x myfirstbashscript.sh
+```
+You can then run it by typing
+```
+# run script myfirstbashscript.sh
+./myfirstbashscript.sh
+```
+
+If instead of hard-coding myfilename.txt, you want to be able to pass this as a variable to the script, you can write it like this:
+```
+#!/usr/bin/bash
+
+# print user-input to the screen
+echo $1
+
+exit 0
+```
+`$1` refers to the first input variable after the filename. So if you now run the script and pass a word to it, it prints the word on the screen.
+```
+# run script myfirstbashscript.sh with input "hello world"
+./myfirstbashscript.sh "hello world"
+```
+
+# Conclusion
+This was just a small introduction into the weird and wonderful world of shell scripting. If you found this interesting and are curious to try out more things, [here](https://devhints.io/bash) is a good and extensive cheat-sheet for scripting, which might help you get going. 
