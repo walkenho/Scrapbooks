@@ -1,3 +1,6 @@
+# Bash Scripting - An Introduction
+The more I program, the more lazy I become. I just can't see, why I should be doing sth, that a computer can do so much better, faster and more reliable on its own. On my way to the lazy worker, I have found shell scripting to be a great friend and helper. When I was doing my PhD (I hold a PhD in computational physics), I had set up a whole calculation machinery which would compile a huge amount of input files for calculations, send of all the calculations to the parallel computing service queuing system, wait for them to finish, extract the relevant data from the output, visualize the results into graphics and animations, create a whole hierarchy of webpages and push all of this onto a webserver, so the results could be viewed from multiple people collaborating from all over the world. It did all of this fully automatically on the push of a button, while I was on lunch-break or for the longer calculations soundly asleep in bed. The best: It did so reliably and never made any mistakes. Because, deep down in our hearts, most of us are lazy, here is a small introduction to the power of bash programming. Hopefully, it can help to send you on your way to becoming a lazier person, too :) (or, to be honest, probably just have more time for the interesting things in life/science/work/you-name-it).
+
 ## Basics: Moving Around and Basic File Manipulations
 ### Moving Around
 If you log on, the first thing you probably want to know is where you are (you will probably be in your homedirectory). You can find this out by printing the name of your current working directory onto the screen
@@ -230,5 +233,5 @@ exit 0
 ./myfirstbashscript.sh "hello world"
 ```
 
-# Conclusion
-This was just a small introduction into the weird and wonderful world of shell scripting. If you found this interesting and are curious to try out more things, [here](https://devhints.io/bash) is a good and extensive cheat-sheet for scripting, which might help you get going. 
+## Conclusion
+This was only a small introduction into the weird and wonderful world of shell scripting. If you found this interesting and are curious to try out more, [here](https://devhints.io/bash) is a good and extensive cheat-sheet for scripting, which might help you get going. As usual, [stackoverflow](https://stackoverflow.com/) also has plenty of advice and help to offer. Or ask me :)
