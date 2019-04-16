@@ -261,10 +261,12 @@ exit 0
 ./myfirstbashscript.sh "hello world"
 ```
 
-## Miscellaneous
+## Miscellaneous Useful Stuff
 * Use tab-completion whenever possible: To autocomplete, press the "Tab" key. If there are multiple options, press it twice to display all options.
 * `ESC + .` will bring back the last token from the previous line (eg: `cp filea fileb`; then in the next line `ESC + .` will produce fileb)
 * brace-completion: You can use `{}` to shorten your code sometimes. For example if you want to rename a file, you can type `mv myfilename{,.bac}`. This does the same as `mv myfilename myfilename.bac`.
+* `tail -f myfilename`: `tail filename` produces the tail at the point of execution. However, you might want to be able to follow output scripts while they are being written. `tail -f` starts of as normal `tail`, but then keeps on appending when new lines appear at the end of the output  file.
+* `watch -n somenumber command` executes the command every somenumber seconds. Great in order to watch files being transfered.
 
 ## Conclusion
 This was only a small introduction into the weird and wonderful world of shell scripting. If you found this interesting and are curious to try out more, [here](https://devhints.io/bash) is a good and extensive cheat-sheet for scripting, which might help you get going. As always, [stackoverflow](https://stackoverflow.com/) also has plenty of advice and help to offer. Or ask me :)
