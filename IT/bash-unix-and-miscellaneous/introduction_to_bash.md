@@ -105,7 +105,7 @@ mv old_folder new_folder
 ```
 
 ## Interacting with Files and Chaining Commands Together - Slightly Less Basic
-### Interacting with text files
+### Interacting with Text Files
 Now that we know how to move files around, we also want to do sth useful with them. 
 
 There are four main options to access the content of a text file. I recommend just trying them out to see what they do and how they behave differently. These are the commands:
