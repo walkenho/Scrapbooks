@@ -217,7 +217,13 @@ do
  echo $i
 done
 ```
-Note that $() opens a new sub-shell, where it resolves the content of () and then passes the output back to the outer shell (here: seq 1 3 produces the sequence 1 2 3 and passes it back to the outer shell, where it is then looped over.
+Note that $() opens a new sub-shell, where it resolves the content of () and then passes the output back to the outer shell (here: seq 1 3 produces the sequence 1 2 3 and passes it back to the outer shell, where it is then looped over. This can be very useful to loop for example over files containing a certain pattern:
+```
+for myfile in $(ls *somepattern*);
+do
+  cp myfile myfile.bac
+done
+```
 
 ### Writing a (Very) Basic Script
 You can create a text file containing bash syntax, make it executable and then run it. For example you can create a text file containing the following code snippet:
@@ -258,6 +264,7 @@ exit 0
 ## Miscellaneous
 * Use tab-completion whenever possible: To autocomplete, press the "Tab" key. If there are multiple options, press it twice to display all options.
 * `ESC + .` will bring back the last token from the previous line (eg: `cp filea fileb`; then in the next line `ESC + .` will produce fileb)
+* brace-completion: You can use `{}` to shorten your code sometimes. For example if you want to rename a file, you can type `mv myfilename{,.bac}`. This does the same as `mv myfilename myfilename.bac`.
 
 ## Conclusion
 This was only a small introduction into the weird and wonderful world of shell scripting. If you found this interesting and are curious to try out more, [here](https://devhints.io/bash) is a good and extensive cheat-sheet for scripting, which might help you get going. As always, [stackoverflow](https://stackoverflow.com/) also has plenty of advice and help to offer. Or ask me :)
