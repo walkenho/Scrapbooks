@@ -104,7 +104,7 @@ rm –r folder_to_remove
 mv old_folder new_folder
 ```
 
-## Interacting with files and chaining commands together - slightly less basic
+## Interacting with Files and Chaining Commands Together - Slightly Less Basic
 ### Interacting with text files
 Now that we know how to move files around, we also want to do sth useful with them. 
 
