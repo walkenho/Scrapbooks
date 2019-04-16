@@ -21,6 +21,9 @@ ls -a
 
 # include hidden files and print more details 
 ls -la
+
+# lists only directories (without content)
+ls -ld directory name
 ```
 
 You can find info on a bash command and its modifiers by using the `man` command.
