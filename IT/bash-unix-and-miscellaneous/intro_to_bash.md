@@ -22,8 +22,8 @@ ls -a
 # include hidden files and print more details 
 ls -la
 
-# lists only directories (without content)
-ls -ld directory name
+# list only directory (without content)
+ls -1d directoryname
 ```
 
 You can find info on a bash command and its modifiers by using the `man` command.
@@ -47,13 +47,25 @@ cd ..
 
 # chaining these together to move into directory which is also inside the directory above (basically into a "parallel" directory)
 cd ../mydirectory
+
+# change into previous work directory
+cd -
 ```
 
 ### Advanced Moving Around
+You can use pushd/popd to add/delete directories from/to a stack. Once added to the stack, you can jump between the directories. Note that when building up the stack, you need to add the final directory twice, since the final position will always get overwritten (it sounds more complicated than it is, just try it out and you will see what I mean).
 ```
-pushd dir
+# add mydirectory to stack
+pushd mydirectory
+
+# delete upmost repository from stack
 popd 
+
+# show directories in stack
 dirs -v 
+
+# change to directory numbered n (eg 2) in the stack
+cd ~2
 ```
 
 ### Basic Interaction with Files and Folders
@@ -242,6 +254,10 @@ exit 0
 # run script myfirstbashscript.sh with input "hello world"
 ./myfirstbashscript.sh "hello world"
 ```
+
+## Miscellaneous
+* Use tab-completion whenever possible: To autocomplete, press the "Tab" key. If there are multiple options, press it twice to display all options.
+* `ESC + .` will bring back the last token from the previous line (eg: `cp filea fileb`; then in the next line `ESC + .` will produce fileb)
 
 ## Conclusion
 This was only a small introduction into the weird and wonderful world of shell scripting. If you found this interesting and are curious to try out more, [here](https://devhints.io/bash) is a good and extensive cheat-sheet for scripting, which might help you get going. As always, [stackoverflow](https://stackoverflow.com/) also has plenty of advice and help to offer. Or ask me :)
