@@ -68,6 +68,7 @@ References
 * https://www.nytimes.com/2016/06/26/opinion/sunday/artificial-intelligences-white-guy-problem.html
 * https://towardsdatascience.com/is-artificial-intelligence-racist-and-other-concerns-817fa60d75e9
 * https://developers.googleblog.com/2018/04/text-embedding-models-contain-bias.html
+* https://developers.google.com/machine-learning/fairness-overview/
 
 
 GloVe Word-Embeddings: https://nlp.stanford.edu/projects/glove/
