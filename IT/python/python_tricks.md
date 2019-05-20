@@ -7,7 +7,7 @@ parameters:
 
 ```python
 >>> def f(a, b, *, c='x', d='y', e='z'):
-...     return 'Hello'
+...    return 'Hello'
 ```
 
 To pass the value for c, d, and e you 
