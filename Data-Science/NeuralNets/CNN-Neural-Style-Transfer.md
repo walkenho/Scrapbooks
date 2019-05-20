@@ -15,3 +15,5 @@ By capturing the prevalence of different types of features ( GiiGii ), as well a
 
 Resources:
 * [Original paper](https://arxiv.org/abs/1508.06576)
+* [Google colab demo](https://colab.research.google.com/github/tensorflow/models/blob/master/research/nst_blogpost/4_Neural_Style_Transfer_with_Eager_Execution.ipynb#scrollTo=dzJTObpsO3TZ)
+* [Blog post comparing different optimizers for Neural Style Transfer](https://blog.slavv.com/picking-an-optimizer-for-style-transfer-86e7b8cba84b)
