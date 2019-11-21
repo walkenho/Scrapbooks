@@ -23,3 +23,41 @@ conda list
 
 # my packages:
 pip install nltk
+
+
+####
+Add the line
+ 
+. /usr/bin/anaconda/etc/profile.d/conda.sh
+ 
+To
+ 
+~/.bashrc
+ 
+And restart the shell
+ 
+ 
+Clone an environment 
+ 
+sudo /usr/bin/anaconda/bin/conda create --name destenv --clone srcenv
+ 
+e.g. 
+ 
+sudo /usr/bin/anaconda/bin/conda create --name jessicas-env --clone py35
+ 
+Install stuff
+ 
+conda activate jessicas-env
+ 
+sudo /usr/bin/anaconda/bin/conda install keras
+ 
+or for stuff from other channels
+ 
+sudo /usr/bin/anaconda/bin/conda install -c conda-forge holoviews
+ 
+sudo /usr/bin/anaconda/bin/conda install -c bokeh datashader
+ 
+
+
+----------------------
+conda install --file  requirements.txt 
