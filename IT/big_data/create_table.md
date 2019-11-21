@@ -1,3 +1,8 @@
+`
+create database database_name location 'adl://path/database_name.db'; 
+`
+
+`
 CREATE EXTERNAL TABLE database_name.table_name
 (
 columnname1 string,
@@ -14,3 +19,4 @@ LOCATION
 hadoop fs -mkdir adl://path/databasename.db/foldername
 
 hdfs dfs -put i017.csv adl://path/databasename.db/foldername.
+`
