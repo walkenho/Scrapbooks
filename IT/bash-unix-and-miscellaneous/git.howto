@@ -171,3 +171,17 @@ Useful commands
 # adding a remote origin (e.g. a github folder)
  git remote add origin https://github.com/walkenho/MongoDB.git
  git push -u origin master
+
+======================================================================
+List all branches:
+git branch
+git branch --list
+
+Create new branch:
+git branch <branchname>
+
+Change to branch:
+git checkout <branchname>
+
+Create new branch and change to it immediately:
+git checkout -b <branchname>
