@@ -185,3 +185,42 @@ git checkout <branchname>
 
 Create new branch and change to it immediately:
 git checkout -b <branchname>
+
+
+--------------------------------------------------------
+  593  git status
+  594  git push 
+  595  git push --set-upstream origin features/mybranchname
+  596  git status
+  597  git branch
+  598  git checkout master
+  599  git branch
+  600  ls
+  601  git stash
+  602  git checkout master
+  603  git branch
+  604  git checkout -b features/mybranchname
+  605  git stash show
+  606  git stash pop
+  607  git add team/jessica-walkenhorst.md 
+  608  git commit -m "commit-message"
+  609  git status
+  610  git checkout master
+  611  git branch
+  612  git branch -D features/myfeaturename
+  613  git checkout -b features/myfeaturename
+  614  git cherry-pick mycommitid
+  615  git status
+  616  git log
+  617  git show
+  618  git push -F
+  619  git push -f
+  620  git push -f --set-upstream origin features/myfeaturename
+  621  git status
+  622  ls
+  623  cd ../
+  624  ls
+  625  cd new-starters/
+  626  git status
+  627  git branch
+  628  history
