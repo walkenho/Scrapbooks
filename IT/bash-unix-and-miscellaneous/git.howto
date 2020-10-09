@@ -224,3 +224,13 @@ git checkout -b <branchname>
   626  git status
   627  git branch
   628  history
+  
+  
+  ==============================
+  Updating remote origin
+  
+  Get remote origin:
+  git remote -v
+  
+  Set remote origin:
+  git remote set-url origin git@...
