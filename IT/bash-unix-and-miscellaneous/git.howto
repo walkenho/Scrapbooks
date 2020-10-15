@@ -234,3 +234,6 @@ git checkout -b <branchname>
   
   Set remote origin:
   git remote set-url origin git@...
+  
+  # track remote branch:
+  git checkout --track origin/branch_name
