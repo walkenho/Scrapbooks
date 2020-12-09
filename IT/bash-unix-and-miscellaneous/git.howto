@@ -237,3 +237,13 @@ git checkout -b <branchname>
   
   # track remote branch:
   git checkout --track origin/branch_name
+  
+  ==================================
+  Git submodules
+  
+  git submodule init
+  git submodule update
+  
+  # if there is a problem with gettext, you might need to run 
+  export GIT_INTERNAL_GETTEXT_TEST_FALLBACKS=1
+  # this seems to be a result of using pyenv and anaconda (https://github.com/pyenv/pyenv/issues/688)
