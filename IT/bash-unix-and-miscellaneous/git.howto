@@ -247,3 +247,24 @@ git checkout -b <branchname>
   # if there is a problem with gettext, you might need to run 
   export GIT_INTERNAL_GETTEXT_TEST_FALLBACKS=1
   # this seems to be a result of using pyenv and anaconda (https://github.com/pyenv/pyenv/issues/688)
+  #
+ 
+# Git LFS
+In order to use git lfs, you need to install it in every repository. Do so by typing
+```sh
+git lfs install
+```
+You should get the message back 
+```sh
+Updated git hooks.
+Git LFS initialized.
+```
+You also need to add the files/paths you want to track:
+```sh
+git lfs track ...
+``` 
+You can display tracked files by
+```sh
+git lfs ls-files
+```
+Note however, that files will only appear here, once they have been *comitted* to the repository.
